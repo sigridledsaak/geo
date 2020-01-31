@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="static/style.css">
     <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
 </head>
@@ -13,7 +14,7 @@
     <div id='map'>
         <script>
             L.mapbox.accessToken = 'pk.eyJ1Ijoic2lncmlkbGVkc2FhayIsImEiOiJjanJhcXVxaHIwNjRsNDludjg0YnFhNDY0In0.KlxYqykBUZfcRcwfu3lIvQ';
-            var map = L.mapbox.map('map')
+            var map = L.mapbox.map('map',"",{ zoomControl: false })
             .setView([63.426827, 10.391906], 13)
             .addLayer(L.mapbox.styleLayer('mapbox://styles/sigridledsaak/ck620zhrk0n131int59scse0h'));
         </script>
