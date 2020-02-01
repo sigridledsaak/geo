@@ -15,7 +15,7 @@
     <div id='map'>
         <script>
             L.mapbox.accessToken = 'pk.eyJ1Ijoic2lncmlkbGVkc2FhayIsImEiOiJjanJhcXVxaHIwNjRsNDludjg0YnFhNDY0In0.KlxYqykBUZfcRcwfu3lIvQ';
-            var map = L.mapbox.map('map',"",{ zoomControl: false })
+            var map = L.mapbox.map('map','mapbox.streets', {zoomControl: false })
             .setView([63.426827, 10.391906], 13)
             .addLayer(L.mapbox.styleLayer('mapbox://styles/sigridledsaak/ck620zhrk0n131int59scse0h'));
         </script>

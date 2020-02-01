@@ -29,12 +29,14 @@
     list-style: none;
     border-bottom: 1px solid dimgrey;
     padding: 15px 10px;
+    cursor: pointer;
 }
 
 #sidebar ul li#header {
     color: white;
     font-size: 20px;
     font-weight: bold;
+    cursor: initial;
 }
 
 #sidebar .toggle-btn {
