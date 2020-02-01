@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+    <script src="static/sidebar.js"></script>
 </head>
 <body id = mainbody>
     <div id='map'>
@@ -18,6 +19,23 @@
             .setView([63.426827, 10.391906], 13)
             .addLayer(L.mapbox.styleLayer('mapbox://styles/sigridledsaak/ck620zhrk0n131int59scse0h'));
         </script>
+    </div>
+    <div id = sidebar>
+        <div class="toggle-btn" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li id = "header">Tools</li>
+            <li>Buffer</li>
+            <li>Intersection</li>
+            <li>Union</li>
+            <li>Merge</li>
+            <li>Cut</li>
+            <li id ="header">Layers</li>
+        </ul>
+
     </div>
 </body>
 </html>
