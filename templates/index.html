@@ -3,20 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>siggisgis</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="static/style.css">
     <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+    <script src="static/sidebar.js"></script>
 </head>
 <body id = mainbody>
-    <div id='map'></div>
-</body>
+    <div id='map'>
+        <script>
+            L.mapbox.accessToken = 'pk.eyJ1Ijoic2lncmlkbGVkc2FhayIsImEiOiJjanJhcXVxaHIwNjRsNDludjg0YnFhNDY0In0.KlxYqykBUZfcRcwfu3lIvQ';
+            var map = L.mapbox.map('map','mapbox.streets', {zoomControl: false })
+            .setView([63.426827, 10.391906], 13)
+            .addLayer(L.mapbox.styleLayer('mapbox://styles/sigridledsaak/ck620zhrk0n131int59scse0h'));
+        </script>
+    </div>
+    <div id = sidebar>
+        <div class="toggle-btn" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul>
+            <li id = "header">Tools</li>
+            <li>Buffer</li>
+            <li>Intersection</li>
+            <li>Union</li>
+            <li>Merge</li>
+            <li>Cut</li>
+            <li id ="header">Layers</li>
+        </ul>
 
-<script>
-    L.mapbox.accessToken = 'pk.eyJ1Ijoic2lncmlkbGVkc2FhayIsImEiOiJjanJhcXVxaHIwNjRsNDludjg0YnFhNDY0In0.KlxYqykBUZfcRcwfu3lIvQ';
-    var map = L.mapbox.map('map')
-    .setView([63.426827, 10.391906], 13)
-    .addLayer(L.mapbox.styleLayer('mapbox://styles/sigridledsaak/ck620zhrk0n131int59scse0h'));
-    //map.scrollWheelZoom.disable();
-</script>
+    </div>
+</body>
 </html>
