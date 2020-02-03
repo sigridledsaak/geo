@@ -29,6 +29,8 @@
     color: white;
     cursor: pointer;
     padding: 18px;
+    height: 30px;
+    line-height: 0px;
     width: 250px;
     text-align: center;
     outline: none;

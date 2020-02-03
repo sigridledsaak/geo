@@ -10,7 +10,10 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+    <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
+    <script src="https://cdn.rawgit.com/calvinmetcalf/leaflet.shapefile/gh-pages/leaflet.shpfile.js"></script>
     <script src="static/sidebar.js"></script>
+    <script src="static/upload.js"></script>
 </head>
 <body id = mainbody>
     <div id='map'>
@@ -42,7 +45,11 @@
         <div class="content"><p>This is the intersection content</p></div>
         <h3 id = "sidebarHeader">Layers <i class="fas fa-layer-group"></i></h3>
         <button class = "collapsible">Upload zip file</button>
-        <div class = "content"><p>This is the upload content</p></div>
+        <div class = "content">
+            <label for = "input">Select a zipped shapefile:</label>
+            <input type = "file" id = "file"> <br>
+            <input type = "submit" id = "submit" onclick="submitFiles()"> <span id="warning"></span>
+        </div>
     </div>
 </body>
 </html>
