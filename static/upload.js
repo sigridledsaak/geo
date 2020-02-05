@@ -56,10 +56,13 @@ function addLayersToMap(layers){
         node.id = key;
         var textnode = document.createTextNode(key);
         node.appendChild(textnode);
-        node.addEventListener('click', function(){
-            layerClicked(this.id);
-        });
-        node.classList.add("active");
+        //Denne skal brukes til dropdown på layerene!!""
+
+        // node.addEventListener('click', function(){
+        //     layerClicked(this.id);
+        // });
+        var checkbox = makeCheckboxes(key);
+        node.appendChild(checkbox);
         layerListParent.appendChild(node);
         //Adding every layer in the map
         var layer = L.shapefile(layers[key]);
@@ -68,14 +71,28 @@ function addLayersToMap(layers){
     }
 }
 
-//Handles the clicking on the layers, click once it will be disabled and disapper from the map, click once more and it will come back
+function makeCheckboxes(key) {
+    var checkbox = document.createElement("INPUT");
+        checkbox.className = "layerCheckbox";
+        checkbox.id = key + "checkbox";
+        checkbox.setAttribute("type","checkbox");
+        checkbox.checked = true;
+        checkbox.classList.add("checked");
+        checkbox.addEventListener('click', function(){
+            layerClicked(key);
+        });
+    return checkbox;
+
+}
+
+//Handles the clicking on the checkboxes on the layers, click once it will be disabled and disapper from the map, click once more and it will come back
 function layerClicked(layer){
-    var layerElement = document.getElementById(layer);
-    if (layerElement.classList.contains("active")){
+    var layerElement = document.getElementById(layer+"checkbox");
+    if (layerElement.classList.contains("checked")){
         map.removeLayer(layerlist[layer]);
-        layerElement.classList.remove("active");
+        layerElement.classList.remove("checked");
     } else {
         map.addLayer(layerlist[layer]);
-        layerElement.classList.add("active");
+        layerElement.classList.add("checked");
     }
 }

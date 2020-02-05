@@ -53,6 +53,25 @@
     transition: max-height 0.2s ease-out;
 }
 
+.collapsible:after {
+  content: '\2228'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2227"; /* Unicode character for "minus" sign (-) */
+}
+
+.layerCheckbox{
+    float : left;
+    vertical-align : bottom;
+    padding : 0px 0px;
+    margin : 0px 0px;
+}
+
 #sidebarHeader{
     color: white;
     text-align: center;
