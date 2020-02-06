@@ -30,6 +30,7 @@ function handleZipFile(file){
 
 //Makes a dictionary of all the shp files in the zip and their belonging shp
 function convertToLayers(buffer){
+    window .geolist = {};
     var layerList = {};
     shp(buffer).then(function(array){ //Array here is an array of the geojson from the shp files in the zipped file uploaded
         if( array.length === undefined){ //If there is only one shp file in the zip then the array will be a geojson, and the length will be undefined
@@ -42,6 +43,8 @@ function convertToLayers(buffer){
             }
         }
         addLayersToMap(layerList);
+        //geolist is a list of all the geojsons for every layer in the map, used in the workers.
+        geolist = layerList;
     });
 }
 
@@ -51,25 +54,55 @@ function addLayersToMap(layers){
     var layerListParent = document.getElementById("layerListParent");
     for(var key in layers){
         //Adding every layer in the layerlist in the sidebar
-
         var node = document.createElement("DIV");
         node.className = "collapsible_layer";
         node.id = key;
+
         var textnode = document.createTextNode(key);
         node.appendChild(textnode);
+
         var button = document.createElement("BUTTON");
         button.className = "collapse_button";
         button.id = key+"collapse_button";
-        button.innerHTML = "<i class=\"fas fa-edit\"></i>"
+        button.innerHTML = "<i class=\"fas fa-edit\"></i>";
+
         var checkbox = makeCheckboxes(key);
         node.appendChild(checkbox);
         node.appendChild(button);
         layerListParent.appendChild(node);
+
         //Adding every layer in the map
         var layer = L.shapefile(layers[key]);
         layer.addTo(map);
         layerlist[key] = layer;
     }
+    updateSidebarLayers();
+}
+
+function addNewLayerToMap(key,geojson){
+    var layerListParent = document.getElementById("layerListParent");
+    //Adding layer in the layerlist in the sidebar
+    var node = document.createElement("DIV");
+    node.className = "collapsible_layer";
+    node.id = key;
+
+    var textnode = document.createTextNode(key);
+    node.appendChild(textnode);
+
+    var button = document.createElement("BUTTON");
+    button.className = "collapse_button";
+    button.id = key+"collapse_button";
+    button.innerHTML = "<i class=\"fas fa-edit\"></i>";
+
+    var checkbox = makeCheckboxes(key);
+    node.appendChild(checkbox);
+    node.appendChild(button);
+    layerListParent.appendChild(node);
+
+    //Adding layer in the map
+    var layer = L.shapefile(geojson);
+    layer.addTo(map);
+    layerlist[key] = layer;
     updateSidebarLayers();
 }
 

@@ -16,6 +16,9 @@
     <script src="static/sidebar.js"></script>
     <script src="static/upload.js"></script>
     <script src="static/colorPicker.js"></script>
+    <script src="static/workers/buffer.js"></script>
+    <script src="static/workers/merge.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 </head>
 <body id = mainbody>
     <div id='map'>
@@ -35,11 +38,9 @@
         <h3 id = "sidebarHeader">Tools <i class="fas fa-tools"></i> </h3>
         <button class="collapsible">Buffer</button>
         <div class = "content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
+            Radius (km): <input id = "bufferRadius" type="text" name="radius">
+            Layername : <input id = "bufferLayer" type="text" name="layer">
+            <button class ="submit" onclick="makeBuffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Make Buffer</button>
         </div>
         <button class = "collapsible">Union</button>
         <div class = "content"><p>This is the union content</p></div>

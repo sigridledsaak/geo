@@ -18,10 +18,11 @@
     background: black;
     left: -250px;
     transition: all 200ms linear;
-    opacity : 0.8;
+    opacity : 0.9;
 }
 #sidebar.active {
     left: 0px;
+    overflow-y: scroll;
 }
 
 .collapsible {
@@ -45,12 +46,18 @@
 }
 
 .content {
-    padding: 0 18px;
     background-color: #262626;
     color: white;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+.content.active {
+    padding : 6px 6px;
+}
+.content.active:after{
+    content : "";
 }
 
 .collapsible:after {

@@ -10,6 +10,7 @@ function updateSidebar(){
       coll[i].addEventListener("click", function() {
         this.classList.toggle("active");
         var content = this.nextElementSibling;
+        content.classList.toggle("active");
         if (content.style.maxHeight){
           content.style.maxHeight = null;
         } else {
@@ -43,6 +44,7 @@ function updateSidebarLayers(){
                 }
             }
             var content = this.parentNode.nextElementSibling;
+            content.classList.toggle("active");
             if (this.classList.contains("active")) {
                 content.style.display = "";
             } else {
