@@ -1,25 +1,28 @@
+var map = document.getElementById("map");
 
-function makeColorPicker(layer){
-    var swatches = document.getElementById('swatches');
-    var layer = document.getElementById('layer');
+function makeColorPicker(layerName){
+    var swatches = document.getElementById('swatches-'+layerName);
     var colors = [
         '#ffffcc',
-        '#a1dab4',
-        '#41b6c4',
+        '#00b300',
+        '#3333ff',
         '#2c7fb8',
         '#253494',
-        '#fed976',
+        '#ff66b3',
         '#feb24c',
         '#fd8d3c',
         '#f03b20',
-        '#bd0026'
+        '#bd0026',
+        '#804000',
+        '#404040'
     ];
-    //console.log(layerlist);
+    var layer = layerlist[layerName];
     colors.forEach(function(color) {
     var swatch = document.createElement('button');
+    swatch.style.height = "15px";
     swatch.style.backgroundColor = color;
     swatch.addEventListener('click', function() {
-        map.setPaintProperty(layer.value, 'fill-color', color);
+        layer.setStyle({color: color});
     });
     swatches.appendChild(swatch);
     });

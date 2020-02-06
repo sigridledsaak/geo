@@ -26,9 +26,16 @@ function updateSidebarLayers(){
         coll[i].addEventListener("click", function() {
             this.classList.toggle("active");
             this.parentNode.classList.toggle("active");
-            if (this.parentNode.nextElementSibling.className === "collapsible_layer") {
-                var content = createLayerContent();
+            var layerName = this.parentNode.id;
+            try {
+                var nextLayer = this.parentNode.nextElementSibling.className;
+            } catch {
+                var nextLayer = "";
+            }
+            if (nextLayer === "collapsible_layer" || nextLayer ==="") {
+                var content = createLayerContent(layerName);
                 insertAfter(content, this.parentNode);
+                makeColorPicker(layerName);
                 if (content.style.maxHeight) {
                     content.style.maxHeight = null;
                 } else {
@@ -48,13 +55,19 @@ function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
 }
 
-function createLayerContent(){
+function createLayerContent(layerName){
     var content = document.createElement("DIV");
     content.className = "content";
     content.id = "layer-content";
-    var par = document.createElement("P");
-    par.innerText = "Hello";
-    content.appendChild(par);
+    // var par = document.createElement("P");
+    // par.innerText = "Hello";
+    // content.appendChild(par);
+    var label = document.createElement("LABEL");
+    label.innerText = "Choose a color";
+    var div = document.createElement("DIV");
+    div.id = "swatches-"+layerName;
+    div.className = "swatches";
+    content.appendChild(label);
+    content.appendChild(div);
     return content;
-
 }
