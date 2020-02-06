@@ -69,7 +69,62 @@
     float : left;
     vertical-align : bottom;
     padding : 0px 0px;
-    margin : 0px 0px;
+    margin : -5px 0px;
+}
+
+.collapsible_layer {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    line-height: 0px;
+    width: inherit;
+    text-align: center;
+    outline: none;
+    font-size: 15px;
+    border:none;
+    border-bottom: 1px solid grey;
+    border-top: 1px solid grey;
+
+}
+.active {
+    background-color: #262626;
+}
+.collapsible_layer.active:after{
+    content : "";
+}
+
+.layer-content {
+    padding: 0 18px;
+    margin:0 0;
+    background-color: #262626;
+    color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.collapse_button {
+     /* Unicode character for down arrow */
+    background-color: black;
+    color: white;
+    float: right;
+    text-align: center;
+    position : inherit;
+    top : -3px;
+    padding: 0px 7px;
+    margin: -8px -7px;
+
+}
+.collapse_button:after {
+    content: '\2228';
+}
+
+.collapse_button.active {
+    background-color: #262626;
+}
+.collapse_button.active:after {
+    content: "\2227";
 }
 
 #sidebarHeader{

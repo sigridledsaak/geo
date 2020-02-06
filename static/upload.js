@@ -51,24 +51,26 @@ function addLayersToMap(layers){
     var layerListParent = document.getElementById("layerListParent");
     for(var key in layers){
         //Adding every layer in the layerlist in the sidebar
-        var node = document.createElement("BUTTON");
-        node.className = "collapsible";
+
+        var node = document.createElement("DIV");
+        node.className = "collapsible_layer";
         node.id = key;
         var textnode = document.createTextNode(key);
         node.appendChild(textnode);
-        //Denne skal brukes til dropdown på layerene!!""
-
-        // node.addEventListener('click', function(){
-        //     layerClicked(this.id);
-        // });
+        var button = document.createElement("BUTTON");
+        button.className = "collapse_button";
+        button.id = key+"collapse_button";
+        button.innerHTML = "<i class=\"fas fa-edit\"></i>"
         var checkbox = makeCheckboxes(key);
         node.appendChild(checkbox);
+        node.appendChild(button);
         layerListParent.appendChild(node);
         //Adding every layer in the map
         var layer = L.shapefile(layers[key]);
         layer.addTo(map);
         layerlist[key] = layer;
     }
+    updateSidebarLayers();
 }
 
 function makeCheckboxes(key) {
@@ -82,7 +84,6 @@ function makeCheckboxes(key) {
             layerClicked(key);
         });
     return checkbox;
-
 }
 
 //Handles the clicking on the checkboxes on the layers, click once it will be disabled and disapper from the map, click once more and it will come back
