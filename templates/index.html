@@ -36,19 +36,19 @@
             <span></span>
         </div>
         <h3 id = "sidebarHeader">Tools <i class="fas fa-tools"></i> </h3>
-        <button class="collapsible">Buffer</button>
+        <button class="collapsible" data-listener = "false">Buffer</button>
         <div class = "content">
             Radius (km): <input id = "bufferRadius" type="text" name="radius">
             Layername : <input id = "bufferLayer" type="text" name="layer">
             <button class ="submit" onclick="makeBuffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Make Buffer</button>
         </div>
-        <button class = "collapsible">Union</button>
+        <button class = "collapsible" data-listener = "false">Union</button>
         <div class = "content"><p>This is the union content</p></div>
-        <button class = "collapsible">Intersection</button>
+        <button class = "collapsible" data-listener = "false">Intersection</button>
         <div class="content"><p>This is the intersection content</p></div>
         <h3 id = "sidebarHeader">Layers <i class="fas fa-layer-group"></i></h3>
         <div class = "layerList" id="layerListParent"></div>
-        <button class = "collapsible">Upload zip file</button>
+        <button class = "collapsible" data-listener = "false">Upload zip file</button>
         <div class = "content">
             <label for = "input">Select a zipped shapefile:</label>
             <input type = "file" id = "file"> <br>

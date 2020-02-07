@@ -64,6 +64,7 @@ function addLayersToMap(layers){
         var button = document.createElement("BUTTON");
         button.className = "collapse_button";
         button.id = key+"collapse_button";
+        button.setAttribute("data-listener","false");
         button.innerHTML = "<i class=\"fas fa-edit\"></i>";
 
         var checkbox = makeCheckboxes(key);
@@ -92,6 +93,7 @@ function addNewLayerToMap(key,geojson){
     var button = document.createElement("BUTTON");
     button.className = "collapse_button";
     button.id = key+"collapse_button";
+    button.setAttribute("data-listener","false");
     button.innerHTML = "<i class=\"fas fa-edit\"></i>";
 
     var checkbox = makeCheckboxes(key);
@@ -114,13 +116,13 @@ function makeCheckboxes(key) {
         checkbox.checked = true;
         checkbox.classList.add("checked");
         checkbox.addEventListener('click', function(){
-            layerClicked(key);
+            checkboxClicked(key);
         });
     return checkbox;
 }
 
 //Handles the clicking on the checkboxes on the layers, click once it will be disabled and disapper from the map, click once more and it will come back
-function layerClicked(layer){
+function checkboxClicked(layer){
     var layerElement = document.getElementById(layer+"checkbox");
     if (layerElement.classList.contains("checked")){
         map.removeLayer(layerlist[layer]);
