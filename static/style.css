@@ -15,22 +15,22 @@
     position : fixed;
     width: 250px;
     height: 100%;
-    background: black;
+    background: #001a33;
     left: -250px;
     transition: all 200ms linear;
-    opacity : 0.8;
 }
 #sidebar.active {
     left: 0px;
+    overflow-y: scroll;
 }
 
 .collapsible {
-    background-color: black;
+    background-color:  #001a33;
     color: white;
     cursor: pointer;
     padding: 18px;
     height: 30px;
-    line-height: 0px;
+    line-height: 0;
     width: 250px;
     text-align: center;
     outline: none;
@@ -40,17 +40,23 @@
     border-top: 1px solid grey;
 
 }
-.active, .collapsible:hover {
-    background-color: #262626;
+.collapsible.active, .collapsible:hover {
+    background-color: #00264d;
 }
 
 .content {
-    padding: 0 18px;
-    background-color: #262626;
+    background-color: #00264d;
     color: white;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+.content.active {
+    padding : 6px 6px;
+}
+.content.active:after{
+    content : "";
 }
 
 .collapsible:after {
@@ -61,7 +67,7 @@
   margin-left: 5px;
 }
 
-.active:after {
+.collapsible.active:after {
   content: "\2227"; /* Unicode character for "minus" sign (-) */
 }
 
@@ -73,7 +79,7 @@
 }
 
 .collapsible_layer {
-    background-color: black;
+    background-color:  #001a33;
     color: white;
     cursor: pointer;
     padding: 18px;
@@ -87,17 +93,14 @@
     border-top: 1px solid grey;
 
 }
-.active {
-    background-color: #262626;
-}
-.collapsible_layer.active:after{
-    content : "";
+.collapsible_layer.active {
+    background-color: #00264d;
 }
 
 .layer-content {
     padding: 0 18px;
     margin:0 0;
-    background-color: #262626;
+    background-color: #00264d;
     color: white;
     max-height: 0;
     overflow: hidden;
@@ -106,7 +109,7 @@
 
 .collapse_button {
      /* Unicode character for down arrow */
-    background-color: black;
+    background-color:  #001a33;
     color: white;
     float: right;
     text-align: center;
@@ -121,10 +124,15 @@
 }
 
 .collapse_button.active {
-    background-color: #262626;
+    background-color: #00264d;
 }
+
 .collapse_button.active:after {
     content: "\2227";
+}
+
+.bufferInput {
+    margin: 2px;
 }
 
 #sidebarHeader{
@@ -132,19 +140,28 @@
     text-align: center;
     font-weight: bold;
 }
-#sidebar .toggle-btn {
+
+.toggle-btn {
     position: absolute;
-    left: 280px;
+    left: 30px;
     top: 20px;
+    transition: all 200ms linear;
 }
 
-#sidebar .toggle-btn span {
+.toggle-btn span {
     display: block;
     width: 30px;
     height: 5px;
-    background: black;
+    background:#001a33;
     margin: 3px 0px;
+}
+.toggle-btn.active {
+    position: absolute;
+    left: 280px;
+    top: 20px;
 
 }
+
+
 
 
