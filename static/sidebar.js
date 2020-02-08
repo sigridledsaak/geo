@@ -1,8 +1,10 @@
 
 function toggleSidebar() {
+    document.getElementById("burgerButton").classList.toggle("active");
     document.getElementById("sidebar").classList.toggle("active");
     updateSidebar();
 }
+
 function updateSidebar(){
     var coll = document.getElementsByClassName("collapsible");
     var i;

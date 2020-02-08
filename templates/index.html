@@ -29,17 +29,17 @@
             .addLayer(L.mapbox.styleLayer('mapbox://styles/sigridledsaak/ck620zhrk0n131int59scse0h'));
         </script>
     </div>
+    <div id = "burgerButton" class="toggle-btn" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <div id = sidebar>
-        <div class="toggle-btn" onclick="toggleSidebar()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
         <h3 id = "sidebarHeader">Tools <i class="fas fa-tools"></i> </h3>
         <button class="collapsible" data-listener = "false">Buffer</button>
         <div class = "content">
-            Radius (km): <input id = "bufferRadius" type="text" name="radius">
-            Layername : <input id = "bufferLayer" type="text" name="layer">
+            <input class = "bufferInput" id = "bufferRadius" type="text" name="radius" placeholder="Radius (km)">
+            <input class = "bufferInput" id = "bufferLayer" type="text" name="layer" placeholder="Layername">
             <button class ="submit" onclick="makeBuffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Make Buffer</button>
         </div>
         <button class = "collapsible" data-listener = "false">Union</button>
