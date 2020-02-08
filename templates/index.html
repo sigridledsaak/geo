@@ -38,9 +38,9 @@
         <h3 id = "sidebarHeader">Tools <i class="fas fa-tools"></i> </h3>
         <button class="collapsible" data-listener = "false">Buffer</button>
         <div class = "content">
-            <input class = "bufferInput" id = "bufferRadius" type="text" name="radius" placeholder="Radius (km)">
+            <input class = "bufferInput" id = "bufferRadius" type="text" name="radius" placeholder="Radius (km)"><span id = "bufferWarning"></span>
             <input class = "bufferInput" id = "bufferLayer" type="text" name="layer" placeholder="Layername">
-            <button class ="submit" onclick="makeBuffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Make Buffer</button>
+            <button class ="submit" onclick="buffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Make Buffer</button>
         </div>
         <button class = "collapsible" data-listener = "false">Union</button>
         <div class = "content"><p>This is the union content</p></div>
