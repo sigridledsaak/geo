@@ -81,6 +81,7 @@ function addLayersToMap(layers){
 }
 
 function addNewLayerToMap(key,geojson){
+    geolist[key]=geojson;
     var layerListParent = document.getElementById("layerListParent");
     //Adding layer in the layerlist in the sidebar
     var node = document.createElement("DIV");
