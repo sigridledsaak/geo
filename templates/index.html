@@ -18,7 +18,9 @@
     <script src="static/colorPicker.js"></script>
     <script src="static/tools/buffer.js"></script>
     <script src="static/tools/merge.js"></script>
+    <script src="static/tools/intersect.js"></script>
     <script src = "static/workers/unionWorker.js"></script>
+    <script src = "static/workers/intersectWorker.js"></script>
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
 </head>
 <body id = mainbody>
@@ -41,16 +43,20 @@
         <div class = "content">
             <input class = "userinput" id = "bufferRadius" type="text" name="radius" placeholder="Radius (km)"><span id = "bufferWarning"></span>
             <input class = "userinput" id = "bufferLayer" type="text" name="layer" placeholder="Layername">
-            <button class ="submit" onclick="buffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Make Buffer</button>
+            <button class ="submit" onclick="buffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Buffer</button>
         </div>
         <button class = "collapsible" data-listener = "false">Union</button>
         <div class = "content">
             <input class = "userinput" id = "unionLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "unionWarning"></span>
             <input class = "userinput" id = "unionLayer2" type="text" name="layer2" placeholder="Layername 2">
-            <button class ="submit" onclick="union(document.getElementById('unionLayer1').value,document.getElementById('unionLayer2').value)">Make Union</button> <div class="loader" id ="unionLoader"></div>
+            <button class ="submit" onclick="union(document.getElementById('unionLayer1').value,document.getElementById('unionLayer2').value)">Union</button> <div class="loader" id ="unionLoader"></div>
         </div>
         <button class = "collapsible" data-listener = "false">Intersection</button>
-        <div class="content"><p>This is the intersection content</p></div>
+        <div class="content">
+            <input class = "userinput" id = "intersectLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "intersectWarning"></span>
+            <input class = "userinput" id = "intersectLayer2" type="text" name="layer2" placeholder="Layername 2">
+            <button class ="submit" onclick="intersect(document.getElementById('intersectLayer1').value,document.getElementById('intersectLayer2').value)">Intersect</button> <div class="loader" id ="intersectLoader"></div>
+        </div>
         <h3 id = "sidebarHeader">Layers <i class="fas fa-layer-group"></i></h3>
         <div class = "layerList" id="layerListParent"></div>
         <button class = "collapsible" data-listener = "false">Upload zip file</button>
