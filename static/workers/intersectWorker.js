@@ -1,49 +1,37 @@
 self.addEventListener('message', function(ev) {
     importScripts('https://npmcdn.com/@turf/turf/turf.min.js');
-    var data = ev.data;
-    try {
-        var merged1 = merge(data.layer1.features);
-    } catch (e) {
-        console.log(e);
-        var merged1 = data.layer1;
-    } try{
-        var merged2 = merge(data.layer2.features);
-    } catch (e) {
-        console.log(e);
-        var merged2 = data.layer2;
-    }
-
-    if (merged1.geometry.type==="MultiPolygon") {
-        var pieces1 = merged1.geometry.coordinates.map(c => turf.polygon(c))
-    } else {
-        var pieces1 = [merged1];
-    }
-
-    if (merged2.geometry.type === "MultiPolygon") {
-        var pieces2 = merged2.geometry.coordinates.map(c => turf.polygon(c))
-    } else {
-        var pieces2 = [merged2];
-    }
+    var layer1 = ev.data.layer1;
+    var layer2 = ev.data.layer2;
     var intersections = [];
-    for(var i = 0; i<pieces1.length; i++){
-        for (var j = 0; j<pieces2.length; j++){
-            var poly1 = turf.unkinkPolygon(pieces1[i]);
-            var poly2 = turf.unkinkPolygon(pieces2[j]);
+    let len1 = 0;
+    let len2 = 0;
+    if (layer1.type === "FeatureCollection"){
+        len1 = layer1.features.length;
+        var features1 = layer1.features;
+    } else if (layer1.type === "Feature"){
+        len1 = 1;
+        var features1 = [layer1];
+    }
+    if (layer2.type === "FeatureCollection"){
+        len2 = layer2.features.length;
+         var features2 = layer2.features;
+    }  else if (layer2.type === "Feature"){
+        len2 = 1;
+        var features2 = [layer2];
+    }
+
+    for (var i = 0; i < len1; i++) {
+        for (var j = 0; j < len2; j++){
             try {
-                var intersected = turf.intersect(merge(poly1.features),merge(poly2.features));
-                if (intersected != null) {
-                    intersections.push(intersected);
+                var intersection = turf.intersect(features1[i],features2[j]);
+                if (intersection != null){
+                    console.log("Fucked");
+                    intersections.push(intersection);
                 }
-            } catch (e) {
+            }catch (e) {
                 console.log(e);
             }
         }
     }
     self.postMessage(intersections) //sends back to the function that uses the worker
     }, false);
-
-//Need this to merge the layers if they are not merged.
-function merge(layers){
-    var merged = turf.union(...layers);
-    return merged
-}
