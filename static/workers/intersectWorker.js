@@ -25,7 +25,6 @@ self.addEventListener('message', function(ev) {
             try {
                 var intersection = turf.intersect(features1[i],features2[j]);
                 if (intersection != null){
-                    console.log("Fucked");
                     intersections.push(intersection);
                 }
             }catch (e) {
