@@ -15,6 +15,7 @@ function intersect(layername1,layername2){
         worker.addEventListener('message', function(e) {
             if (e.data.length != 0) {
                 let layer = merge(e.data);
+                layer["properties"]="Intersection between " + layername1 + " and " + layername2;
                 addNewLayerToMap("intersect" + layername1 + layername2, layer);
             } else {
                 alert("The layers has no overlapping geometry.");
