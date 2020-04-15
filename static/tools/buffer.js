@@ -13,7 +13,7 @@ function buffer(radius, layerName){
     var errorMessage = document.getElementById("bufferWarning");
     try {
          var merged = makeBuffer(radius, layerName);
-         merged["properties"] = "Buffer with radius: "+radius + "km, around : " +layerName;
+         merged["properties"] = {Info : `Buffer with radius: ${radius} km, around : ${layerName}`};
          errorMessage.innerText = "";
          addNewLayerToMap("buffer"+radius+layerName,merged);
     }catch (e) {

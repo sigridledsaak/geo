@@ -13,15 +13,17 @@
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
     <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
     <script src="https://cdn.rawgit.com/calvinmetcalf/leaflet.shapefile/gh-pages/leaflet.shpfile.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script src="static/sidebar.js"></script>
     <script src="static/upload.js"></script>
     <script src="static/colorPicker.js"></script>
     <script src="static/tools/buffer.js"></script>
     <script src="static/tools/merge.js"></script>
     <script src="static/tools/intersect.js"></script>
+    <script src="static/tools/difference.js"></script>
     <script src = "static/workers/unionWorker.js"></script>
     <script src = "static/workers/intersectWorker.js"></script>
-    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script src = "static/workers/differenceWorker.js"></script>
 </head>
 <body id = mainbody>
     <div id='map'>
@@ -56,6 +58,12 @@
             <input class = "userinput" id = "intersectLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "intersectWarning"></span>
             <input class = "userinput" id = "intersectLayer2" type="text" name="layer2" placeholder="Layername 2">
             <button class ="submit" onclick="intersect(document.getElementById('intersectLayer1').value,document.getElementById('intersectLayer2').value)">Intersect</button> <div class="loader" id ="intersectLoader"></div>
+        </div>
+       <button class="collapsible" data-listener = "false">Difference</button>
+        <div class = "content">
+            <input class = "userinput" id = "differenceLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "differenceWarning"></span>
+            <input class = "userinput" id = "differenceLayer2" type="text" name="layer2" placeholder="Layername 2">
+            <button class ="submit" onclick="differences(document.getElementById('differenceLayer1').value,document.getElementById('differenceLayer2').value)">Difference</button> <div class="loader" id ="differenceLoader"></div>
         </div>
         <h3 id = "sidebarHeader">Layers <i class="fas fa-layer-group"></i></h3>
         <div class = "layerList" id="layerListParent"></div>
