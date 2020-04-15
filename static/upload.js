@@ -53,18 +53,18 @@ function addLayersToMap(layers){
     window .layerlist = {};
     var layerListParent = document.getElementById("layerListParent");
     for(var key in layers){
+        var color = Math.round(Math.random()*11);
         //Adding every layer in the layerlist in the sidebar
         var node = document.createElement("DIV");
         node.className = "collapsible_layer";
         node.id = key;
-
         var textnode = document.createTextNode(key);
         node.appendChild(textnode);
-
         var button = document.createElement("BUTTON");
         button.className = "collapse_button";
         button.id = key+"collapse_button";
         button.setAttribute("data-listener","false");
+        button.style.backgroundColor = colors[color];
         button.innerHTML = "<i class=\"fas fa-edit\"></i>";
 
         var checkbox = makeCheckboxes(key);
@@ -77,6 +77,7 @@ function addLayersToMap(layers){
         for (let l in layer._layers){
             layer._layers[l].bindPopup("<p>"+JSON.stringify(layer._layers[l].feature.properties, null, 4)+"</p>");
         }
+        layer.setStyle({color : colors[color]});
         layer.addTo(map);
         layerlist[key] = layer;
     }
@@ -85,6 +86,7 @@ function addLayersToMap(layers){
 
 function addNewLayerToMap(key,geojson){
     geolist[key]=geojson;
+    var color = Math.round(Math.random()*11);
     var layerListParent = document.getElementById("layerListParent");
     //Adding layer in the layerlist in the sidebar
     var node = document.createElement("DIV");
@@ -98,6 +100,7 @@ function addNewLayerToMap(key,geojson){
     button.className = "collapse_button";
     button.id = key+"collapse_button";
     button.setAttribute("data-listener","false");
+    button.style.backgroundColor = colors[color];
     button.innerHTML = "<i class=\"fas fa-edit\"></i>";
 
     var checkbox = makeCheckboxes(key);
@@ -110,6 +113,7 @@ function addNewLayerToMap(key,geojson){
     for (let l in layer._layers){
         layer._layers[l].bindPopup("<p>"+JSON.stringify(layer._layers[l].feature.properties, null, 4)+"</p>");
     }
+    layer.setStyle({color:colors[color]});
     layer.addTo(map);
     layerlist[key] = layer;
     updateSidebarLayers();
