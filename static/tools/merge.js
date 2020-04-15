@@ -20,7 +20,7 @@ function union(layername1,layername2){
         worker.addEventListener('message', function(e) {
             var layer = e.data;
             layer["properties"]={Info : `Union between ${layername1} and ${layername2}`};
-            addNewLayerToMap("union"+layername1+layername2,layer);
+            addNewLayerToMap("U"+layername1+layername2,layer);
             loader.style.display = "none";
         }, false); // Add listener to listen for messages that come from the worker
         worker.postMessage({'layer1' : layer1, 'layer2' : layer2}); //This is how we post information to the worker

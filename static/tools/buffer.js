@@ -15,7 +15,7 @@ function buffer(radius, layerName){
          var merged = makeBuffer(radius, layerName);
          merged["properties"] = {Info : `Buffer with radius: ${radius} km, around : ${layerName}`};
          errorMessage.innerText = "";
-         addNewLayerToMap("buffer"+radius+layerName,merged);
+         addNewLayerToMap("B"+radius+layerName,merged);
     }catch (e) {
         console.log(e);
         errorMessage.innerText = "No such layer";

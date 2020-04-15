@@ -16,7 +16,7 @@ function differences(layername1,layername2){
                 let layer = merge(e.data);
                 //Properties må være object!
                  layer["properties"]={Info : `Difference between ${layername1} and ${layername2}`};
-                addNewLayerToMap("difference" + layername1 + layername2, layer);
+                addNewLayerToMap("D" + layername1 + layername2, layer);
             } else {
                 alert("The layers has no overlapping geometry or other failure, check console");
             }
