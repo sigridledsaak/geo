@@ -74,6 +74,9 @@ function addLayersToMap(layers){
 
         //Adding every layer in the map
         var layer = L.shapefile(layers[key]);
+        for (let l in layer._layers){
+            layer._layers[l].bindPopup("<p>"+JSON.stringify(layer._layers[l].feature.properties, null, 4)+"</p>");
+        }
         layer.addTo(map);
         layerlist[key] = layer;
     }
@@ -104,6 +107,9 @@ function addNewLayerToMap(key,geojson){
 
     //Adding layer in the map
     var layer = L.shapefile(geojson);
+    for (let l in layer._layers){
+        layer._layers[l].bindPopup("<p>"+JSON.stringify(layer._layers[l].feature.properties, null, 4)+"</p>");
+    }
     layer.addTo(map);
     layerlist[key] = layer;
     updateSidebarLayers();
