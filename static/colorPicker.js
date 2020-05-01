@@ -19,13 +19,13 @@ function makeColorPicker(layerName){
     var tab = document.getElementById(layerName);
     var layer = layerlist[layerName];
     colors.forEach(function(color) {
-    var swatch = document.createElement('button');
-    swatch.style.height = "15px";
-    swatch.style.backgroundColor = color;
-    swatch.addEventListener('click', function() {
-        layer.setStyle({color: color});
-        tab.children[1].style.backgroundColor = color;
-    });
+        var swatch = document.createElement('button');
+        swatch.style.height = "15px";
+        swatch.style.backgroundColor = color;
+        swatch.addEventListener('click', function() {
+            layer.setStyle({color: color});
+            tab.children[1].style.backgroundColor = color;
+        });
     swatches.appendChild(swatch);
     });
 }

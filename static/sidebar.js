@@ -75,7 +75,65 @@ function createLayerContent(layerName){
     var div = document.createElement("DIV");
     div.id = "swatches-"+layerName;
     div.className = "swatches";
+    var featureColorCheck = document.createElement("INPUT");
+    featureColorCheck.className = "featureCheckbox";
+    featureColorCheck.id = layerName + "featureCheckbox";
+    featureColorCheck.setAttribute("type","checkbox");
+    featureColorCheck.checked = false;
+    featureColorCheck.addEventListener('click', function() { showFeaturesByColor(layerName)});
+    var featureLabel = document.createElement("LABEL");
+    featureLabel.innerText="Show features by color";
     content.appendChild(label);
     content.appendChild(div);
+    content.appendChild(featureColorCheck);
+    content.appendChild(featureLabel);
     return content;
+}
+
+function showFeaturesByColor(layerName){
+    var layerElement = document.getElementById(layerName + "featureCheckbox");
+    if (layerElement.classList.contains("checked")){
+        //Setting the color of the layer back to the color it was last.
+        const color = document.getElementById(layerName+"collapse_button").style.backgroundColor;
+        const layer = layerlist[layerName];
+        layer.setStyle({color:color});
+        layerElement.classList.remove("checked");
+    } else {
+        //Setting different colors for the different features.
+        setColorsForFeatures(layerName);
+        layerElement.classList.add("checked");
+    }
+}
+
+function setColorsForFeatures(layerName){
+    let layer = layerlist[layerName];
+    let maxval = colors.length;
+    let count = 0;
+    // Using a map instead of object because maps can have any key type, dict only strings. Here my key will be an object
+    let featuresAndColor = new Map();
+    console.log(layer._layers.length);
+    console.log(layer);
+    if(layer._layers){
+        alert("There is only one feature in this layer");
+    }else {
+        layer.eachLayer(function (layer) {
+        let feat = layer.feature;
+        let color = "";
+        //Making a string containing the object, to be able to compare them.
+        let obj = JSON.stringify(feat.properties);
+        console.log(obj);
+        if (featuresAndColor.has(obj)){
+            color = featuresAndColor.get(obj);
+        }else {
+            color = colors[count];
+            console.log(color);
+            count ++;
+            if(count>=maxval){
+                count = 0;
+            }
+        }
+        featuresAndColor.set(obj,color);
+        layer.setStyle({color:color});
+    });
+    }
 }

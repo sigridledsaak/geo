@@ -37,7 +37,7 @@ function convertToLayers(buffer){
             var layerName = array.fileName;
             layerList[layerName] = array;
         } else {
-            for(i = 0; i<array.length; i++){
+            for(i = 0; i < array.length; i++){
                 var layerName = array[i].fileName;
                 layerList[layerName]=array[i];
             }
