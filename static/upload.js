@@ -82,6 +82,7 @@ function addLayersToMap(layers){
         layerlist[key] = layer;
     }
     updateSidebarLayers();
+    updateToolDropDowns();
 }
 
 function addNewLayerToMap(key,geojson){
@@ -117,6 +118,7 @@ function addNewLayerToMap(key,geojson){
     layer.addTo(map);
     layerlist[key] = layer;
     updateSidebarLayers();
+    addSingleOptionDropDown(key);
 }
 
 function makeCheckboxes(key) {
@@ -143,3 +145,28 @@ function checkboxClicked(layer){
         layerElement.classList.add("checked");
     }
 }
+
+function updateToolDropDowns(){
+    let toolDrops = document.getElementsByClassName("toolDrop");
+    for (let layerName of Object.keys(layerlist)){
+        for (let drop of toolDrops){
+            let option = document.createElement("option");
+            option.text = layerName;
+            option.value = layerName;
+            let options = Array.from(drop.options);
+            if (!options.includes(option)){
+                drop.options.add(option);
+            }
+        }
+    }
+}
+function addSingleOptionDropDown(layerName){
+    let toolDrops = document.getElementsByClassName("toolDrop");
+    for (let drop of toolDrops){
+        let option = document.createElement("option");
+        option.text = layerName;
+        option.value = layerName;
+        drop.options.add(option);
+    }
+}
+

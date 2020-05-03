@@ -1,4 +1,4 @@
-function makeBuffer(radius, layerName){
+function makeBuffer(layerName, radius){
     var layer = geolist[layerName];
     var buffer = turf.buffer(layer, radius, {units: "kilometers" });
     try {
@@ -9,15 +9,20 @@ function makeBuffer(radius, layerName){
     return merged;
 }
 
-function buffer(radius, layerName){
+function buffer(layerName,radius){
     var errorMessage = document.getElementById("bufferWarning");
-    try {
-         var merged = makeBuffer(radius, layerName);
-         merged["properties"] = {Info : `Buffer with radius: ${radius} km, around : ${layerName}`};
-         errorMessage.innerText = "";
-         addNewLayerToMap("B"+radius+layerName,merged);
-    }catch (e) {
-        console.log(e);
-        errorMessage.innerText = "No such layer";
+    //Checks if the input radius is a number
+    if(isNaN(radius)){
+        errorMessage.innerText = "Radius must be a number"
+    } else {
+        errorMessage.innerText = "";
+        try {
+            var merged = makeBuffer(layerName, radius);
+            merged["properties"] = {Info: `Buffer with radius: ${radius} km, around : ${layerName}`};
+            //errorMessage.innerText = "";
+            addNewLayerToMap("B" + radius + layerName, merged);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

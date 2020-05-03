@@ -5,15 +5,13 @@ function merge(layers){
 }
 
 function union(layername1,layername2){
-    var errorMessage = document.getElementById("unionWarning");
     var loader = document.getElementById("unionLoader");
     try {
         var layer1 = geolist[layername1];
         var layer2 = geolist[layername2];
-        errorMessage.innerText = "";
         loader.style.display = "inline";
-    }catch {
-        errorMessage.innerText = "Upload first"
+    }catch (e) {
+        console.log(e);
     }
     if (window.Worker) {
         var worker = new Worker('static/workers/unionWorker.js');

@@ -44,35 +44,51 @@
         <h3 id = "sidebarHeader">Tools <i class="fas fa-tools"></i> </h3>
         <button class="collapsible" data-listener = "false">Buffer</button>
         <div class = "content">
-            <input class = "userinput" id = "bufferRadius" type="text" name="radius" placeholder="Radius (km)"><span id = "bufferWarning"></span>
-            <input class = "userinput" id = "bufferLayer" type="text" name="layer" placeholder="Layername">
-            <button class ="submit" onclick="buffer(document.getElementById('bufferRadius').value,document.getElementById('bufferLayer').value)">Buffer</button>
+            <select id = "bufferDrop" class = "toolDrop">
+                <option label = "Select layer">Select 1. layer</option>
+            </select>
+            <input class = "userinput" id = "bufferRadius" type="text" name="radius" placeholder="Radius (km)">
+            <button class ="submit" onclick="buffer(document.getElementById('bufferDrop').options[document.getElementById('bufferDrop').selectedIndex].value,document.getElementById('bufferRadius').value)">Buffer</button><span id = "bufferWarning"></span>
         </div>
         <button class = "collapsible" data-listener = "false">Union</button>
         <div class = "content">
-            <input class = "userinput" id = "unionLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "unionWarning"></span>
-            <input class = "userinput" id = "unionLayer2" type="text" name="layer2" placeholder="Layername 2">
-            <button class ="submit" onclick="union(document.getElementById('unionLayer1').value,document.getElementById('unionLayer2').value)">Union</button> <div class="loader" id ="unionLoader"></div>
+            <select id = "unionDrop1" class = "toolDrop">
+                <option label = "Select 1. layer">Select 1. layer</option>
+            </select>
+            <select id = "unionDrop2" class = "toolDrop">
+                <option label = "Select 2. layer">Select 1. layer</option>
+            </select>
+            <button class ="submit" onclick="union(document.getElementById('unionDrop1').options[document.getElementById('unionDrop1').selectedIndex].value,document.getElementById('unionDrop2').options[document.getElementById('unionDrop2').selectedIndex].value)">Union</button> <div class="loader" id ="unionLoader"></div>
         </div>
         <button class = "collapsible" data-listener = "false">Intersection</button>
         <div class="content">
-            <input class = "userinput" id = "intersectLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "intersectWarning"></span>
-            <input class = "userinput" id = "intersectLayer2" type="text" name="layer2" placeholder="Layername 2">
-            <button class ="submit" onclick="intersect(document.getElementById('intersectLayer1').value,document.getElementById('intersectLayer2').value)">Intersect</button> <div class="loader" id ="intersectLoader"></div>
+            <select id = "intersectDrop1" class = "toolDrop">
+                <option label = "Select 1. layer">Select 1. layer</option>
+            </select>
+            <select id = "intersectDrop2" class = "toolDrop">
+                <option label = "Select 2. layer">Select 1. layer</option>
+            </select>
+            <button class ="submit" onclick="intersect(document.getElementById('intersectDrop1').options[document.getElementById('intersectDrop1').selectedIndex].value,document.getElementById('intersectDrop2').options[document.getElementById('intersectDrop2').selectedIndex].value)">Intersect</button> <div class="loader" id ="intersectLoader"></div>
         </div>
-       <button class="collapsible" data-listener = "false">Difference</button>
+        <button class="collapsible" data-listener = "false">Difference</button>
         <div class = "content">
-            <input class = "userinput" id = "differenceLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "differenceWarning"></span>
-            <input class = "userinput" id = "differenceLayer2" type="text" name="layer2" placeholder="Layername 2">
-            <button class ="submit" onclick="differences(document.getElementById('differenceLayer1').value,document.getElementById('differenceLayer2').value)">Difference</button> <div class="loader" id ="differenceLoader"></div>
+            <select id = "differenceDrop1" class = "toolDrop">
+                <option label = "Select 1. layer">Select 1. layer</option>
+            </select>
+            <select id = "differenceDrop2" class = "toolDrop">
+                <option label = "Select 2. layer">Select 2. layer</option>
+            </select>
+            <button class ="submit" onclick="differences(document.getElementById('differenceDrop1').options[document.getElementById('differenceDrop1').selectedIndex].value,document.getElementById('differenceDrop2').options[document.getElementById('differenceDrop2').selectedIndex].value)">Difference</button> <div class="loader" id ="differenceLoader"></div>
         </div>
         <button class="collapsible" data-listener = "false">Feature Selection</button>
         <div class = "content">
-            <input class = "userinput" id = "SelectionLayer" type="text" name="layer1" placeholder="Layername 1"><span id = "differenceWarning"></span>
-            <select id = "featureDrop">
-                <option value = "OBJTYPE">OBJTYPE</option>
+            <select id = "featureSelectionDrop" class = "toolDrop" onchange="updatePropertiesDrop()">
+                <option label = "Select layer">Select layer</option>
             </select>
-            <button class ="submit" onclick="featureSelection(document.getElementById('SelectionLayer').value,document.getElementById('featureDrop').options[document.getElementById('featureDrop').selectedIndex].value)">Select</button> <div class="loader" id ="featureSelectionLoader"></div>
+            <select id = "propertiesDrop">
+                <option label = "Select feature">Select feature</option>
+            </select>
+            <button class ="submit" onclick="featureSelection(document.getElementById('featureSelectionDrop').options[document.getElementById('featureSelectionDrop').selectedIndex].value,document.getElementById('propertiesDrop').options[document.getElementById('propertiesDrop').selectedIndex].value)">Select</button> <div class="loader" id ="featureSelectorLoader"></div>
         </div>
         <h3 id = "sidebarHeader">Layers <i class="fas fa-layer-group"></i></h3>
         <div class = "layerList" id="layerListParent"></div>

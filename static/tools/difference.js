@@ -1,13 +1,11 @@
 function differences(layername1,layername2){
-    var errorMessage = document.getElementById("differenceWarning");
     var loader = document.getElementById("differenceLoader");
     try {
         var layer1 = turf.buffer(geolist[layername1],0.000001);
         var layer2 = turf.buffer(geolist[layername2],0.000001);
-        errorMessage.innerText = "";
         loader.style.display = "inline";
-    }catch {
-        errorMessage.innerText = "Upload first"
+    }catch(e) {
+        console.log(e);
     }
     if (window.Worker) {
         var worker = new Worker('static/workers/differenceWorker.js');

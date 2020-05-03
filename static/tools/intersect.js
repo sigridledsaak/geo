@@ -1,14 +1,12 @@
 function intersect(layername1,layername2){
-    var errorMessage = document.getElementById("intersectWarning");
     var loader = document.getElementById("intersectLoader");
-
     try {
         var layer1 = geolist[layername1];
         var layer2 = geolist[layername2];
-        errorMessage.innerText = "";
+        //errorMessage.innerText = "";
         loader.style.display = "inline";
-    }catch {
-        errorMessage.innerText = "Upload first"
+    }catch (e){
+        console.log(e);
     }
     if (window.Worker) {
         var worker = new Worker('static/workers/intersectWorker.js');

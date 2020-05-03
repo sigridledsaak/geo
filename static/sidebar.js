@@ -115,21 +115,21 @@ function setColorsForFeatures(layerName){
         alert("There is only one feature in this layer");
     }else {
         layer.eachLayer(function (layer) {
-        let feat = layer.feature;
-        let color = "";
-        //Making a string containing the object, to be able to compare them.
-        let obj = JSON.stringify(feat.properties);
-        if (featuresAndColor.has(obj)){
-            color = featuresAndColor.get(obj);
-        }else {
-            color = colors[count];
-            count ++;
-            if(count>=maxval-1){
-                count = 0;
+            let feat = layer.feature;
+            let color = "";
+            //Making a string containing the object, to be able to compare them.
+            let obj = JSON.stringify(feat.properties);
+            if (featuresAndColor.has(obj)){
+                color = featuresAndColor.get(obj);
+            }else {
+                color = colors[count];
+                count ++;
+                if(count>=maxval-1){
+                    count = 0;
+                }
             }
-        }
         featuresAndColor.set(obj,color);
         layer.setStyle({color:color});
-    });
+        });
     }
 }
