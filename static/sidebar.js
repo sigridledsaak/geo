@@ -83,6 +83,7 @@ function createLayerContent(layerName){
     featureColorCheck.addEventListener('click', function() { showFeaturesByColor(layerName)});
     var featureLabel = document.createElement("LABEL");
     featureLabel.innerText="Show features by color";
+
     content.appendChild(label);
     content.appendChild(div);
     content.appendChild(featureColorCheck);
@@ -111,9 +112,7 @@ function setColorsForFeatures(layerName){
     let count = 0;
     // Using a map instead of object because maps can have any key type, dict only strings. Here my key will be an object
     let featuresAndColor = new Map();
-    console.log(layer._layers.length);
-    console.log(layer);
-    if(layer._layers){
+    if(Object.keys(layer._layers).length == 1){
         alert("There is only one feature in this layer");
     }else {
         layer.eachLayer(function (layer) {
@@ -121,14 +120,12 @@ function setColorsForFeatures(layerName){
         let color = "";
         //Making a string containing the object, to be able to compare them.
         let obj = JSON.stringify(feat.properties);
-        console.log(obj);
         if (featuresAndColor.has(obj)){
             color = featuresAndColor.get(obj);
         }else {
             color = colors[count];
-            console.log(color);
             count ++;
-            if(count>=maxval){
+            if(count>=maxval-1){
                 count = 0;
             }
         }
