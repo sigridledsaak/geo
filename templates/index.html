@@ -21,6 +21,7 @@
     <script src="static/tools/merge.js"></script>
     <script src="static/tools/intersect.js"></script>
     <script src="static/tools/difference.js"></script>
+    <script src="static/tools/featureSelector.js"></script>
     <script src = "static/workers/unionWorker.js"></script>
     <script src = "static/workers/intersectWorker.js"></script>
     <script src = "static/workers/differenceWorker.js"></script>
@@ -64,6 +65,14 @@
             <input class = "userinput" id = "differenceLayer1" type="text" name="layer1" placeholder="Layername 1"><span id = "differenceWarning"></span>
             <input class = "userinput" id = "differenceLayer2" type="text" name="layer2" placeholder="Layername 2">
             <button class ="submit" onclick="differences(document.getElementById('differenceLayer1').value,document.getElementById('differenceLayer2').value)">Difference</button> <div class="loader" id ="differenceLoader"></div>
+        </div>
+        <button class="collapsible" data-listener = "false">Feature Selection</button>
+        <div class = "content">
+            <input class = "userinput" id = "SelectionLayer" type="text" name="layer1" placeholder="Layername 1"><span id = "differenceWarning"></span>
+            <select id = "featureDrop">
+                <option value = "OBJTYPE">OBJTYPE</option>
+            </select>
+            <button class ="submit" onclick="featureSelection(document.getElementById('SelectionLayer').value,document.getElementById('featureDrop').options[document.getElementById('featureDrop').selectedIndex].value)">Select</button> <div class="loader" id ="featureSelectionLoader"></div>
         </div>
         <h3 id = "sidebarHeader">Layers <i class="fas fa-layer-group"></i></h3>
         <div class = "layerList" id="layerListParent"></div>

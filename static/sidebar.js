@@ -83,7 +83,6 @@ function createLayerContent(layerName){
     featureColorCheck.addEventListener('click', function() { showFeaturesByColor(layerName)});
     var featureLabel = document.createElement("LABEL");
     featureLabel.innerText="Show features by color";
-
     content.appendChild(label);
     content.appendChild(div);
     content.appendChild(featureColorCheck);
