@@ -86,6 +86,7 @@ function addLayersToMap(layers){
 }
 
 function addNewLayerToMap(key,geojson){
+
     geolist[key]=geojson;
     var color = Math.round(Math.random()*11);
     var layerListParent = document.getElementById("layerListParent");
