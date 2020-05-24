@@ -22,7 +22,7 @@ function differences(layername1,layername2){
                      layer["properties"]={Info : `Difference between ${layername1} and ${layername2}`};
                      addNewLayerToMap("D" + layername1 + layername2, layer);
                 } else {
-                    alert("The layers has no overlapping geometry or other failure, check console");
+                    alert("The result is empty, maybe there is no difference or other failure, check console");
                 }
                 loader.style.display = "none";
             }, false); // Add listener to listen for messages that come from the worker
