@@ -7,6 +7,8 @@ function openWindow(layerName){
         //Show the modal
         warning.innerText = "";
         modal.style.display = "block";
+        let modalTitle = document.getElementById("modalLayerName");
+        modalTitle.innerText = layerName;
         initDynamicDropDowns();
         updatePropertiesDrop(layerName);
         document.getElementById("rulesDrop").options.selectedIndex = 0;
@@ -30,6 +32,19 @@ function openWindow(layerName){
     };
 }
 
+function checkRules(property,operator,value){
+    if (property ==="Select feature"){
+        return false;
+    }else if (operator ==="Select function"){
+        return false;
+    }else if (value ==="Select value"){
+        return false;
+    }else {
+        return true;
+    }
+
+}
+
 function getRules(){
     let constraints = document.getElementsByClassName("constraintRow");
     var ruleList= [];
@@ -38,57 +53,66 @@ function getRules(){
         let property = con.children[0].options[con.children[0].selectedIndex].value;
         let operator = con.children[1].options[con.children[1].selectedIndex].value;
         let value = con.children[2].options[con.children[2].selectedIndex].value;
-        ruleobj["property"] = property;
-        ruleobj["operator"] = operator;
-        ruleobj["value"] = value;
-        ruleList.push(ruleobj);
+        if (checkRules(property,operator,value)){
+            ruleobj["property"] = property;
+            ruleobj["operator"] = operator;
+            ruleobj["value"] = value;
+            ruleList.push(ruleobj);
+        }else {
+            ruleList.push("EMPTYFIELD");
+        }
+
     }
     return ruleList;
 }
-
-//TODO fix : valuesDrop that just adds options when you chose different props
-//TODO fix : several rules does not work!
-//TODO fix : reset modal when close X
-//TODO fix : when you chose a layer and change before open the modal , the propdrop is fucked. X
-//TODO : NÅR open tool blir kalt kan vi vell hente props, trenger ikke ha onchange på hvilket lag! X
 
 //checks which of the features in the layer that satisfies the first rule, then those features are put in templayers and
 //used to check which satisfies also the next rule and so on.
 function featureSelection(){
     var ruleList = getRules();
-    let layerName = document.getElementById('featureSelectionDrop').options[document.getElementById('featureSelectionDrop').selectedIndex].value;
-    let layer = layerlist[layerName];
-    let numberOfRules = ruleList.length;
-    let templayers = layer._layers;
-    for (var i = 0; i<numberOfRules;i++){
-        let featuresThatSatisfyRule = [];
-        for (let layer in templayers){
-            console.log(templayers[layer].feature);
-            if (templayers[layer].feature){
-                if (checkRule(templayers[layer].feature,ruleList[i])){
-                    featuresThatSatisfyRule.push(templayers[layer].feature);
+    let warning = document.getElementById("modalWarning");
+    if (ruleList.includes("EMPTYFIELD")){
+        warning.innerText = "All available dropdown-fields must have a valid value";
+        warning.style = "color:red";
+    }else {
+        warning.innerText = "";
+        let layerName = document.getElementById('featureSelectionDrop').options[document.getElementById('featureSelectionDrop').selectedIndex].value;
+        let layer = layerlist[layerName];
+        let numberOfRules = ruleList.length;
+        let templayers = layer._layers;
+        for (var i = 0; i<numberOfRules;i++){
+            let featuresThatSatisfyRule = [];
+            for (let layer in templayers) {
+                let feat;
+                if (templayers[layer].feature) {
+                    feat = templayers[layer].feature;
+                } else {
+                    feat = templayers[layer];
+                }
+                if (checkRule(feat, ruleList[i])) {
+                    featuresThatSatisfyRule = featuresThatSatisfyRule.concat(feat);
                 }
             }
+            templayers = featuresThatSatisfyRule;
         }
-        templayers = featuresThatSatisfyRule;
+        if(templayers.length===0) {
+            alert("There is no element in the specified layer that fulfills the constraints given in the feature selector.");
+        }else if (templayers.length ===1){
+            //Add the single feature to the map
+            let newlayer = templayers[0];
+            addNewLayerToMap("FS" + layerName, newlayer);
+        }else {
+            //Have to make a featureCollection of the features that satisfy the rules to be able to use the map in the other tools
+            let featureCollection = {"features" : templayers,"fileName" : layerName,"type":"FeatureCollection"};
+            addNewLayerToMap("FS" + layerName, featureCollection);
+        }
+        document.getElementById("closeButton").click();
     }
-    if(templayers.length==0) {
-        alert("There is no element in the specified layer that fulfills the constraints given in the feature selector.");
-    }else if (templayers.length ==1){
-        let newlayer = templayers[0];
-        newlayer["properties"]=`FeatureSelected with rules ${JSON.stringify(ruleList,null,2)}`;
-        addNewLayerToMap("FS" + layerName, newlayer);
-    }else {
 
-        let featureSelected = merge(templayers);
-        featureSelected["properties"]=`FeatureSelected with rules ${JSON.stringify(ruleList,null,2)}`;
-        addNewLayerToMap("FS" + layerName, featureSelected);
-    }
-    document.getElementById("closeButton").click();
 }
 
+
 function checkRule(feature,rule){
-    console.log(feature);
     switch (rule.operator) {
         case "==":
             return feature.properties[rule.property]==rule.value;
@@ -149,6 +173,10 @@ function updatePropertyValuesDrop(){
 
 function addConstraint(){
     let numberOfContraints = document.getElementsByClassName("constraintRow").length;
+    let minusButton = document.getElementById("minusButton");
+    if (numberOfContraints>0){
+        minusButton.style = "display : inline";
+    }
     let modalContent = document.getElementsByClassName("constraintContent")[0];
     let div = document.createElement("div");
     div.className = "constraintRow";
@@ -185,6 +213,18 @@ function addConstraint(){
     modalContent.appendChild(div);
     //Adds listener for the onchange event to the propdrop to populate the attribute values in the attribute values dropdown.
     updateAddedPropertyValuesDrop(numberOfContraints);
+}
+
+function removeConstraint(){
+    let numberOfConstraints = document.getElementsByClassName("constraintRow").length;
+    let minusButton = document.getElementById("minusButton");
+    //When you remove the secondlast row the button should be hidden
+    if (numberOfConstraints===2){
+        minusButton.style = "display : none";
+    }
+    let modalContent = document.getElementsByClassName("constraintContent")[0];
+    let constraintToBeRemoved = document.getElementById("constraintRow"+String(numberOfConstraints-1));
+    modalContent.removeChild(constraintToBeRemoved);
 }
 
 
@@ -231,25 +271,18 @@ function initDynamicDropDowns(){
     }
 }
 
-//TODO : klarer ikke fjerne alle constraintradene!! må fikse det
-
 function clearModal() {
-    let constraints = document.getElementsByClassName("constraintRow");
+    let constraints = document.getElementsByClassName("constraintRow").length-1;
     let parent = document.getElementsByClassName("constraintContent")[0];
-    let count = 0;
-    // for (let i = 1; i<constraints.length; i++) {
-    //     //     console.log("removed");
-    //     //     console.log(parent.children);
-    //     //     parent.removeChild(constraints[i]);
-    //     // }
-    console.log(constraints.length);
-    while (parent.lastChild && count < constraints.length) {
-        parent.removeChild(parent.lastChild);
-        count=count+1;
-        console.log(count);
+    //Remove all but the first constraint rows
+    while (constraints !=0){
+        parent.removeChild(parent.children[constraints]);
+        constraints = constraints-1;
     }
     let propertiesDropDown = document.getElementById("propertiesDrop");
     propertiesDropDown.innerHTML = "";
     let valueDrop = document.getElementById("propertyValuesDrop");
     valueDrop.innerHTML = "";
+    let minusButton = document.getElementById("minusButton");
+    minusButton.style = "display : none";
 }

@@ -16,6 +16,7 @@
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script src="static/sidebar.js"></script>
     <script src="static/upload.js"></script>
+    <script src="static/layerHandler.js"></script>
     <script src="static/colorPicker.js"></script>
     <script src="static/tools/buffer.js"></script>
     <script src="static/tools/merge.js"></script>
@@ -93,9 +94,10 @@
           <!-- Modal content -->
           <div class="modal-content">
               <span id="closeButton" class = "close">&times;</span>
-              <h4 style ="border-bottom: 1px solid grey">Feature Selector</h4>
+              <h4 style ="border-bottom: 1px solid grey">Feature Selector for <span id = "modalLayerName"></span></h4>
+              <h6 id = "modalWarning"></h6>
               <div class = "constraintContent">
-                  <div class = "constraintRow">
+                  <div class = "constraintRow" id = "firstConstrainRow">
                       <select id = "propertiesDrop" onchange="updatePropertyValuesDrop()">
                         <option label = "Select feature">Select feature</option>
                       </select>
@@ -106,12 +108,13 @@
                           <option value = "<"><</option>
                           <option value = ">=">>=</option>
                           <option value = "<="><=</option>
-                          <option value = "!="><=</option>
+                          <option value = "!=">!=</option>
                       </select>
                       <select id = "propertyValuesDrop">
                           <option label = "Select value">Select value</option>
                       </select>
                       <button class = "submit" onclick="addConstraint()">+</button>
+                      <button class = "submit" onclick="removeConstraint()" style ="display : none " id = "minusButton">-</button>
                   </div>
               </div>
               <br>
