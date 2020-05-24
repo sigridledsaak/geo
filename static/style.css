@@ -81,7 +81,6 @@
 .collapsible_layer {
     background-color:  #001a33;
     color: white;
-    cursor: pointer;
     padding: 18px;
     line-height: 0px;
     width: inherit;
@@ -117,6 +116,7 @@
     top : -3px;
     padding: 0px 7px;
     margin: -8px -7px;
+    cursor:pointer;
 
 }
 .collapse_button:after {
@@ -222,6 +222,14 @@
     z-index: 0 !important;
     position: absolute;
     pointer-events: none;
+}
+
+.downloadButton{
+    float: left;
+    margin-top : -5px;
+    margin-left : 2px;
+    font-size : 13px;
+    cursor:pointer;
 }
 
 

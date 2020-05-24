@@ -1,10 +1,15 @@
+
+
 //Makes the layers list in the template and adds them to the map
-function addLayersToMap(layers){
-    window .layerlist = {};
-    window .layerCounter =0;
+
+
+function addLayersToMap(layers) {
+    window.layerlist = {};
+    window.layerCounter = 0;
+
     var layerListParent = document.getElementById("layerListParent");
-    for(var key in layers){
-        var color = Math.round(Math.random()*11);
+    for (var key in layers) {
+        var color = Math.round(Math.random() * 11);
         //Adding every layer in the layerlist in the sidebar
         var node = document.createElement("DIV");
         node.className = "collapsible_layer";
@@ -13,28 +18,40 @@ function addLayersToMap(layers){
         node.appendChild(textnode);
         var button = document.createElement("BUTTON");
         button.className = "collapse_button";
-        button.id = key+"collapse_button";
-        button.setAttribute("data-listener","false");
+        button.id = key + "collapse_button";
+        button.setAttribute("data-listener", "false");
         button.style.backgroundColor = colors[color];
         button.innerHTML = "<i class=\"fas fa-edit\"></i>";
 
         var checkbox = makeCheckboxes(key);
         node.appendChild(checkbox);
         node.appendChild(button);
+
+        var downloadbutton = document.createElement("ICON");
+
+        downloadbutton.className = "fas fa-download downloadButton";
+        downloadbutton.id = "download:" + key;
+        downloadbutton.addEventListener("click", function (event) {
+            downloadLayer(event);
+        });
+        node.appendChild(downloadbutton);
+
         layerListParent.appendChild(node);
 
         //Adding every layer in the map
         var layer = L.shapefile(layers[key]);
-        for (let l in layer._layers){
-            layer._layers[l].bindPopup("<p>"+JSON.stringify(layer._layers[l].feature.properties, null, 4)+"</p>");
+        for (let l in layer._layers) {
+            layer._layers[l].bindPopup("<p>" + JSON.stringify(layer._layers[l].feature.properties, null, 4) + "</p>");
         }
-        layer.setStyle({color : colors[color]});
+        layer.setStyle({color: colors[color]});
         layer.addTo(map);
         layerlist[key] = layer;
     }
     updateSidebarLayers();
     updateToolDropDowns();
 }
+
+
 
 function addNewLayerToMap(key,geojson){
     if (geolist[key]){

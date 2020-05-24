@@ -7,14 +7,11 @@
     <link rel="stylesheet" type="text/css" href="static/style.css">
     <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
-    <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
-    <script src="https://cdn.rawgit.com/calvinmetcalf/leaflet.shapefile/gh-pages/leaflet.shpfile.js"></script>
-    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script src="static/sidebar.js"></script>
+{#    <script type = "module" src="static/external_packages/FileSaver.js"></script>#}
     <script src="static/fileHandler.js"></script>
     <script src="static/layerHandler.js"></script>
     <script src="static/colorPicker.js"></script>
@@ -26,6 +23,7 @@
     <script src = "static/workers/unionWorker.js"></script>
     <script src = "static/workers/intersectWorker.js"></script>
     <script src = "static/workers/differenceWorker.js"></script>
+
 </head>
 <body id = mainbody>
     <div id='map'>
@@ -130,8 +128,14 @@
         <div class = "content">
             <label for = "input">Select a zipped shapefile:</label>
             <input type = "file" id = "file"> <br>
-            <input type = "submit" id = "submit" onclick="submitFiles()"> <span id="warning"></span>
+            <input type = "submit" id = "submit" onclick="uploadFiles()"> <span id="warning"></span>
         </div>
     </div>
 </body>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>
+    <script src="https://cdn.rawgit.com/calvinmetcalf/leaflet.shapefile/gh-pages/leaflet.shpfile.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+
 </html>

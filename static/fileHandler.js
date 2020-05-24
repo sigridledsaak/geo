@@ -1,7 +1,7 @@
 
 var map = document.getElementById("map");
 
-function submitFiles() {
+function uploadFiles() {
 	var files = document.getElementById('file').files;
 	if (files.length == 0) {
 	  return; //do nothing if no file given yet
@@ -46,6 +46,23 @@ function convertToLayers(buffer){
         //geolist is a list of all the geojsons for every layer in the map, used in the workers.
         geolist = layerList;
     });
+}
+
+function downloadLayer(event){
+    let button = event.target;
+    let l = button.id;
+    let downloadLayerName = l.split(":")[1];
+    let layer = JSON.stringify(geolist[downloadLayerName]);
+    try {
+        var b = new Blob([layer],{type:"text/plain;charset=utf-8"});
+        saveAs(b, downloadLayerName+".geojson");
+    } catch (e) {
+        console.log(e);
+        window.open("data:text/plain;charset=utf-8+,"+ encodeURIComponent(layer), '_blank','');
+    }
+
+
+
 }
 
 
