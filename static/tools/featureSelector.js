@@ -112,9 +112,6 @@ function featureSelection(){
 }
 
 function checkRule(feature,rule){
-    console.log("SE HER");
-    console.log(feature);
-    console.log(rule);
     switch (rule.operator) {
         case "==":
             return feature.properties[rule.property]==rule.value;
@@ -127,7 +124,7 @@ function checkRule(feature,rule){
         case "<=":
             return feature.properties[rule.property]<=rule.value;
         case "!=":
-            return feature.properties[rule.property]!==rule.value;
+            return feature.properties[rule.property]!=rule.value;
     }
 }
 
