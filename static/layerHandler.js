@@ -1,6 +1,7 @@
 //Makes the layers list in the template and adds them to the map
 function addLayersToMap(layers){
     window .layerlist = {};
+    window .layerCounter =0;
     var layerListParent = document.getElementById("layerListParent");
     for(var key in layers){
         var color = Math.round(Math.random()*11);
@@ -36,7 +37,10 @@ function addLayersToMap(layers){
 }
 
 function addNewLayerToMap(key,geojson){
-
+    if (geolist[key]){
+        key = key+String(layerCounter);
+        layerCounter = layerCounter+1;
+    }
     geolist[key]=geojson;
     var color = Math.round(Math.random()*11);
     var layerListParent = document.getElementById("layerListParent");
@@ -67,7 +71,6 @@ function addNewLayerToMap(key,geojson){
         console.log(e);
         var layer = geojson;
     }
-    console.log(layer);
     for (let l in layer._layers){
         layer._layers[l].bindPopup("<p>"+JSON.stringify(layer._layers[l].feature.properties, null, 4)+"</p>");
     }

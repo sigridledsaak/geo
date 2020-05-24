@@ -217,6 +217,13 @@
   cursor: pointer;
 }
 
+/*Setting the mapbox logo to be below the sidebar so it does not interfere with the functionality of the sidebar*/
+.leaflet-bottom, .leaflet-top {
+    z-index: 0 !important;
+    position: absolute;
+    pointer-events: none;
+}
+
 
 
 

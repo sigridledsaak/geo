@@ -1,6 +1,6 @@
 function openWindow(layerName){
     var warning = document.getElementById("featureSelectorWarning");
-    if (layerName == "Select layer"){
+    if (layerName === "Select layer"){
         warning.innerText = "Select a layer";
     }else {
         var modal = document.getElementById("featureSelectionModal");
@@ -13,8 +13,6 @@ function openWindow(layerName){
         updatePropertiesDrop(layerName);
         document.getElementById("rulesDrop").options.selectedIndex = 0;
     }
-
-
     //Hide modal when closebutton is clicked
     var closeButton = document.getElementById("closeButton");
     closeButton.onclick = function() {
@@ -24,7 +22,7 @@ function openWindow(layerName){
     };
     //Hide modal when user clicks outside the modal
     window.onclick = function(event) {
-      if (event.target == modal) {
+      if (event.target === modal) {
         modal.style.display = "none";
         clearModal();
         initDynamicDropDowns();
@@ -101,18 +99,22 @@ function featureSelection(){
             //Add the single feature to the map
             let newlayer = templayers[0];
             addNewLayerToMap("FS" + layerName, newlayer);
+            document.getElementById("closeButton").click();
         }else {
             //Have to make a featureCollection of the features that satisfy the rules to be able to use the map in the other tools
             let featureCollection = {"features" : templayers,"fileName" : layerName,"type":"FeatureCollection"};
             addNewLayerToMap("FS" + layerName, featureCollection);
+            document.getElementById("closeButton").click();
         }
-        document.getElementById("closeButton").click();
+
     }
 
 }
 
-
 function checkRule(feature,rule){
+    console.log("SE HER");
+    console.log(feature);
+    console.log(rule);
     switch (rule.operator) {
         case "==":
             return feature.properties[rule.property]==rule.value;
@@ -125,7 +127,7 @@ function checkRule(feature,rule){
         case "<=":
             return feature.properties[rule.property]<=rule.value;
         case "!=":
-            return feature.properties[rule.property]!=rule.value;
+            return feature.properties[rule.property]!==rule.value;
     }
 }
 

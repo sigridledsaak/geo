@@ -57,9 +57,9 @@
                 <option label = "Select 1. layer">Select 1. layer</option>
             </select>
             <select id = "unionDrop2" class = "toolDrop">
-                <option label = "Select 2. layer">Select 1. layer</option>
+                <option label = "Select 2. layer">Select 2. layer</option>
             </select>
-            <button class ="submit" onclick="union(document.getElementById('unionDrop1').options[document.getElementById('unionDrop1').selectedIndex].value,document.getElementById('unionDrop2').options[document.getElementById('unionDrop2').selectedIndex].value)">Union</button> <div class="loader" id ="unionLoader"></div>
+            <button class ="submit" onclick="union(document.getElementById('unionDrop1').options[document.getElementById('unionDrop1').selectedIndex].value,document.getElementById('unionDrop2').options[document.getElementById('unionDrop2').selectedIndex].value)">Union</button><span id = "unionWarning"></span> <div class="loader" id ="unionLoader"></div>
         </div>
         <button class = "collapsible" data-listener = "false">Intersection</button>
         <div class="content">
@@ -69,7 +69,7 @@
             <select id = "intersectDrop2" class = "toolDrop">
                 <option label = "Select 2. layer">Select 1. layer</option>
             </select>
-            <button class ="submit" onclick="intersect(document.getElementById('intersectDrop1').options[document.getElementById('intersectDrop1').selectedIndex].value,document.getElementById('intersectDrop2').options[document.getElementById('intersectDrop2').selectedIndex].value)">Intersect</button> <div class="loader" id ="intersectLoader"></div>
+            <button class ="submit" onclick="intersect(document.getElementById('intersectDrop1').options[document.getElementById('intersectDrop1').selectedIndex].value,document.getElementById('intersectDrop2').options[document.getElementById('intersectDrop2').selectedIndex].value)">Intersect</button><span id = "intersectWarning"></span> <div class="loader" id ="intersectLoader"></div>
         </div>
         <button class="collapsible" data-listener = "false">Difference</button>
         <div class = "content">
@@ -79,7 +79,7 @@
             <select id = "differenceDrop2" class = "toolDrop">
                 <option label = "Select 2. layer">Select 2. layer</option>
             </select>
-            <button class ="submit" onclick="differences(document.getElementById('differenceDrop1').options[document.getElementById('differenceDrop1').selectedIndex].value,document.getElementById('differenceDrop2').options[document.getElementById('differenceDrop2').selectedIndex].value)">Difference</button> <div class="loader" id ="differenceLoader"></div>
+            <button class ="submit" onclick="differences(document.getElementById('differenceDrop1').options[document.getElementById('differenceDrop1').selectedIndex].value,document.getElementById('differenceDrop2').options[document.getElementById('differenceDrop2').selectedIndex].value)">Difference</button><span id = "differenceWarning"></span> <div class="loader" id ="differenceLoader"></div>
         </div>
         <button class="collapsible" data-listener = "false">Feature Selection</button>
         <div class = "content">
