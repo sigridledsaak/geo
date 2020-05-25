@@ -79,6 +79,16 @@ function addNewLayerToMap(key,geojson){
     var checkbox = makeCheckboxes(key);
     node.appendChild(checkbox);
     node.appendChild(button);
+
+    var downloadbutton = document.createElement("ICON");
+    downloadbutton.className = "fas fa-download downloadButton";
+    downloadbutton.id = "download:" + key;
+    downloadbutton.addEventListener("click", function (event) {
+        downloadLayer(event);
+    });
+    node.appendChild(downloadbutton);
+
+
     layerListParent.appendChild(node);
 
     //Adding layer in the map
