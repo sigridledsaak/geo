@@ -71,24 +71,18 @@
   content: "\2227"; /* Unicode character for "minus" sign (-) */
 }
 
-.layerCheckbox{
-    float : left;
-    vertical-align : bottom;
-    padding : 0px 0px;
-    margin : -5px 0px;
-}
 
 .collapsible_layer {
-    background-color:  #001a33;
+    background-color: #001a33;
     color: white;
-    cursor: pointer;
-    padding: 18px;
-    line-height: 0px;
+    padding: 0px 0px;
+    /*line-height: 0px;*/
     width: inherit;
     text-align: center;
-    outline: none;
+    /*outline: none;*/
+    height: 35px;
     font-size: 15px;
-    border:none;
+    border: none;
     border-bottom: 1px solid grey;
     border-top: 1px solid grey;
 
@@ -106,6 +100,12 @@
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+.layerCheckbox{
+    float : left;
+    vertical-align : bottom;
+    padding : 0px 0px;
+    margin : -26px 7px;
+}
 
 .collapse_button {
      /* Unicode character for down arrow */
@@ -114,9 +114,10 @@
     float: right;
     text-align: center;
     position : inherit;
-    top : -3px;
+    /*top : -3px;*/
     padding: 0px 7px;
-    margin: -8px -7px;
+    margin: -30px 7px;
+    cursor:pointer;
 
 }
 .collapse_button:after {
@@ -130,6 +131,38 @@
 .collapse_button.active:after {
     content: "\2227";
 }
+
+.downloadButton{
+    float: left;
+    /*margin-top : -25px;*/
+    /*margin-left : 15px;*/
+    margin : -26px 22px;
+    font-size : 13px;
+    cursor:pointer;
+}
+.deleteButton{
+    float: left;
+    /*margin-top : -25px;*/
+    /*margin-left : 30px;*/
+    margin:-26px 36px;
+    font-size : 13px;
+    cursor:pointer;
+}
+
+.collapsible_layer_text{
+    width : 140px;
+    height : 20px;
+    margin : 8px auto;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+
+    /* Required for text-overflow to do anything */
+    white-space: nowrap;
+    overflow:hidden;
+
+}
+
+
 
 .userinput {
     margin: 2px;
@@ -223,6 +256,21 @@
     position: absolute;
     pointer-events: none;
 }
+
+
+
+#Logo {
+    position : fixed;
+    right:10px;
+    bottom:5px;
+    color : #3498db;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#sidebar::-webkit-scrollbar {
+  display: none;
+}
+
 
 
 
