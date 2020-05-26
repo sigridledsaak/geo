@@ -124,12 +124,13 @@
 
         <h3 id = "sidebarHeader">Layers <i class="fas fa-layer-group"></i></h3>
         <div class = "layerList" id="layerListParent"></div>
-        <button class = "collapsible" data-listener = "false">Upload zip file</button>
+        <button class = "collapsible" data-listener = "false">Upload files</button>
         <div class = "content">
-            <label for = "input">Select a zipped shapefile:</label>
+            <label for = "input">Select a zipped shapefile or a .geojson file:</label>
             <input type = "file" id = "file"> <br>
             <input type = "submit" id = "submit" onclick="uploadFiles()"> <span id="warning"></span>
         </div>
+        <h3 id="Logo">siggisgis  <i class="fas fa-globe"></i></h3>
     </div>
 </body>
     <script src = "static/mapHandler.js"></script>
