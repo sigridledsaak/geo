@@ -67,7 +67,7 @@ function convertToLayers(buffer){
             }
         }
         addLayersToMap(layerList);
-    });
+    }).catch((error)=>console.log(error));
 }
 
 //When uploaded file is a geojson.
