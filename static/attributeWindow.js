@@ -1,13 +1,13 @@
 function showAttributeWindow(propertyAndColorMap,property){
     let n = propertyAndColorMap.size;
     let window = document.getElementById("attributeWindow");
-    console.log(n);
+    let sortedMap = new Map([...propertyAndColorMap].sort((a,b) => a[0] - b[0]));
+    //Only show attributewindow if number of different values for attribute is less than 25. 
     if (n<25){
        document.getElementById("attributeList").innerText = property;
        window.style.display = "block";
-       propertyAndColorMap.forEach(addElementToWindow);
+       sortedMap.forEach(addElementToWindow);
     }
-
 }
 
 function addElementToWindow(value,key,map){
