@@ -72,6 +72,11 @@ function addLayersToMap(layers) {
 
 
 function addNewLayerToMap(key,geojson){
+    try {
+        layerlist.length;
+    }catch {
+       window.layerlist = {};
+    }
     let modifiedKey = createLayerName(key);
     geolist[modifiedKey]=geojson;
     var color = Math.round(Math.random()*11);

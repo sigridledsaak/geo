@@ -300,6 +300,9 @@
     margin-right: 3px;
     margin-top: -2px;
 }
+.leaflet-draw{
+    float : right;
+}
 
 
 

@@ -85,24 +85,29 @@ function createLayerContent(layerName){
     featureLabel.innerText="Show features by color";
 
     let attributes = getPropertyNames(layerName);
-    var attributeDrop = document.createElement("SELECT");
-    attributeDrop.id = layerName+"attributeDrop";
-    let defaultOption = document.createElement("OPTION");
-    defaultOption.value = "Select property to show by";
-    defaultOption.text = "Select property to show by";
-    attributeDrop.add(defaultOption);
-    for (let a of attributes){
-        attributeDrop.add(createOptionFromText(a));
+    console.log(attributes !="");
+    if (attributes !=""){
+        var attributeDrop = document.createElement("SELECT");
+        attributeDrop.id = layerName+"attributeDrop";
+        let defaultOption = document.createElement("OPTION");
+        defaultOption.value = "Select property to show by";
+        defaultOption.text = "Select property to show by";
+        attributeDrop.add(defaultOption);
+        for (let a of attributes){
+            attributeDrop.add(createOptionFromText(a));
+        }
     }
+
 
     let linebreak = document.createElement("br");
     content.appendChild(label);
     content.appendChild(div);
-    content.appendChild(attributeDrop);
-    content.appendChild(linebreak);
-    content.appendChild(featureLabel);
-    content.appendChild(featureColorCheck);
-
+    if (attributes !=""){
+        content.appendChild(attributeDrop);
+        content.appendChild(linebreak);
+        content.appendChild(featureLabel);
+        content.appendChild(featureColorCheck);
+    }
     return content;
 }
 
@@ -176,7 +181,12 @@ function getPropertyNames(layerName){
     try {
         propertyNames = Object.keys(geolist[layerName].features[0].properties);
     }catch (e){
-        propertyNames = Object.keys(geolist[layerName].properties);
+        try {
+            propertyNames = Object.keys(geolist[layerName].properties);
+        }catch(e) {
+            console.log(e);
+            propertyNames = "";
+        }
     }
     return propertyNames
 }

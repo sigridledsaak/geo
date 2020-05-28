@@ -10,6 +10,8 @@
     <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="static/sidebar.js"></script>
     <script src="static/fileHandler.js"></script>
     <script src="static/layerHandler.js"></script>
@@ -21,6 +23,8 @@
     <script src="static/tools/difference.js"></script>
     <script src="static/tools/featureSelector.js"></script>
     <script src="static/tools/dissolve.js"></script>
+    <script src = "static/tools/create.js"></script>
+    <script src = "static/tools/clip.js"></script>
     <script src = "static/workers/unionWorker.js"></script>
     <script src = "static/workers/intersectWorker.js"></script>
     <script src = "static/workers/differenceWorker.js"></script>
@@ -32,7 +36,7 @@
         <script>
             L.mapbox.accessToken = 'pk.eyJ1Ijoic2lncmlkbGVkc2FhayIsImEiOiJjanJhcXVxaHIwNjRsNDludjg0YnFhNDY0In0.KlxYqykBUZfcRcwfu3lIvQ';
             var map = L.mapbox.map('map','mapbox.streets', {zoomControl: false })
-            .setView([63.426827, 10.391906], 13)
+            .setView([63.426827, 10.391906], 13);
         </script>
     </div>
     <div id = "burgerButton" class="toggle-btn" onclick="toggleSidebar()">
@@ -98,6 +102,22 @@
             <button class = "submit" onclick="openWindow(document.getElementById('featureSelectionDrop').options[document.getElementById('featureSelectionDrop').selectedIndex].value)">Open tool</button>
             <span id = "featureSelectorWarning"></span>
         </div>
+        <button class="collapsible" data-listener = "false">Clip</button>
+        <div class = "content">
+            <select id = "clipLayerDrop" class = "toolDrop">
+                <option label = "Select layer to clip">Select layer to clip</option>
+            </select>
+            <select id = "clipClipperDrop" class = "toolDrop">
+                <option label = "Select layer to clip by">Select layer to clip by</option>
+            </select>
+            <button class = "submit" onclick="clip(document.getElementById('clipLayerDrop').options[document.getElementById('clipLayerDrop').selectedIndex].value,document.getElementById('clipClipperDrop').options[document.getElementById('clipClipperDrop').selectedIndex].value)">Clip</button>
+            <span id = "clipWarning"></span>
+        </div>
+        <button class="collapsible" data-listener = "false">Create</button>
+        <div class = "content">
+            <button class = "submit" id = "drawButton" onclick="create()">Enable drawing</button>
+        </div>
+
         <!-- The Modal -->
         <div id="featureSelectionModal" class="modal">
           <!-- Modal content -->
@@ -155,5 +175,6 @@
     <script src="https://cdn.rawgit.com/calvinmetcalf/leaflet.shapefile/gh-pages/leaflet.shpfile.js"></script>
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script src="http://cdn.jsdelivr.net/g/filesaver.js"></script>
+
 
 </html>
