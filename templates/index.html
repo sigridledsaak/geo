@@ -8,7 +8,6 @@
     <link href='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
-{#    <script src="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.js"></script>#}
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js"></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
     <script src="static/sidebar.js"></script>
@@ -21,9 +20,11 @@
     <script src="static/tools/intersect.js"></script>
     <script src="static/tools/difference.js"></script>
     <script src="static/tools/featureSelector.js"></script>
+    <script src="static/tools/dissolve.js"></script>
     <script src = "static/workers/unionWorker.js"></script>
     <script src = "static/workers/intersectWorker.js"></script>
     <script src = "static/workers/differenceWorker.js"></script>
+    <script src = "static/workers/dissolveWorker.js"></script>
 
 </head>
 <body id = mainbody>
@@ -78,6 +79,16 @@
                 <option label = "Select 2. layer">Select 2. layer</option>
             </select>
             <button class ="submit" onclick="differences(document.getElementById('differenceDrop1').options[document.getElementById('differenceDrop1').selectedIndex].value,document.getElementById('differenceDrop2').options[document.getElementById('differenceDrop2').selectedIndex].value)">Difference</button><span id = "differenceWarning"></span> <div class="loader" id ="differenceLoader"></div>
+        </div>
+        <button class="collapsible" data-listener = "false">Dissolve</button>
+        <div class = "content">
+            <select id = "dissolveDrop" class = "toolDrop" onchange ="updateDissolveAttributes(document.getElementById('dissolveDrop').options[document.getElementById('dissolveDrop').selectedIndex].value)">
+                <option label = "Select layer">Select layer</option>
+            </select>
+            <select id = "dissolveAttributesDrop">
+                <option label = "Select attribute">Select attribute</option>
+            </select>
+            <button class ="submit" onclick="dissolve(document.getElementById('dissolveDrop').options[document.getElementById('dissolveDrop').selectedIndex].value,document.getElementById('dissolveAttributesDrop').options[document.getElementById('dissolveAttributesDrop').selectedIndex].value)">Dissolve</button><span id = "dissolveWarning"></span><div class="loader" id ="dissolveLoader"></div>
         </div>
         <button class="collapsible" data-listener = "false">Feature Selection</button>
         <div class = "content">

@@ -81,9 +81,9 @@ function addNewLayerToMap(key,geojson){
     node.className = "collapsible_layer";
     node.id = modifiedKey;
 
-   var textnode = document.createElement("div");
-   textnode.innerText = modifiedKey;
-   textnode.className = "collapsible_layer_text";
+    var textnode = document.createElement("div");
+    textnode.innerText = modifiedKey;
+    textnode.className = "collapsible_layer_text";
     node.appendChild(textnode);
 
     var button = document.createElement("BUTTON");
@@ -115,12 +115,10 @@ function addNewLayerToMap(key,geojson){
     node.appendChild(deletebutton);
 
     layerListParent.appendChild(node);
-
     //Adding layer in the map
     try {
         var layer = L.shapefile(geojson);
     }catch (e) {
-        console.log(e);
         var layer = geojson;
     }
     for (let l in layer._layers){
