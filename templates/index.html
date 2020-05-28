@@ -15,6 +15,7 @@
     <script src="static/fileHandler.js"></script>
     <script src="static/layerHandler.js"></script>
     <script src="static/colorPicker.js"></script>
+    <script src="static/attributeWindow.js"></script>
     <script src="static/tools/buffer.js"></script>
     <script src="static/tools/merge.js"></script>
     <script src="static/tools/intersect.js"></script>
@@ -26,7 +27,6 @@
 
 </head>
 <body id = mainbody>
-
     <div id='map'>
         <script>
             L.mapbox.accessToken = 'pk.eyJ1Ijoic2lncmlkbGVkc2FhayIsImEiOiJjanJhcXVxaHIwNjRsNDludjg0YnFhNDY0In0.KlxYqykBUZfcRcwfu3lIvQ';
@@ -132,7 +132,12 @@
         </div>
         <h3 id="Logo">siggisgis  <i class="fas fa-globe"></i></h3>
     </div>
+    <div id ="attributeWindow">
+        <span id="closeButtonAttribute" onclick="closeAttributeWindow()">&times;</span>
+        <div id = "attributeList"></div>
+    </div>
 </body>
+
     <script src = "static/mapHandler.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://unpkg.com/shpjs@latest/dist/shp.js"></script>

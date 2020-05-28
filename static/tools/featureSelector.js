@@ -130,15 +130,7 @@ function checkRule(feature,rule){
 
 function updatePropertiesDrop(layerName){
     let propertiesDropDown = document.getElementById("propertiesDrop");
-    //let layerName = document.getElementById('featureSelectionDrop').options[document.getElementById('featureSelectionDrop').selectedIndex].value;
-    let layer = layerlist[layerName];
-    let properties = "";
-    //Just need to access one feature to get the property names.
-    for (let l in layer._layers){
-        let props = layer._layers[l].feature.properties;
-        properties = Object.keys(props);
-        break;
-    }
+    let properties = getPropertyNames(layerName);
     for (let prop of properties){
         let option = document.createElement("option");
         option.value = prop;

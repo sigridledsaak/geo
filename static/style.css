@@ -162,8 +162,6 @@
 
 }
 
-
-
 .userinput {
     margin: 2px;
 }
@@ -270,8 +268,38 @@
 #sidebar::-webkit-scrollbar {
   display: none;
 }
+#attributeWindow{
+    display : none;
+    position : absolute;
+    bottom : 50px;
+    right : 20px;
+    height : auto;
+    width : auto;
+    background-color: whitesmoke;
+    border-radius : 3px;
 
+}
 
+#attributeList{
+    margin:2px 4px;
+    font-weight: bold;
+}
+
+.colorCircle {
+    display: block;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 5px;
+}
+
+#closeButtonAttribute{
+    float:right;
+    cursor:pointer;
+    margin-right: 3px;
+    margin-top: -2px;
+}
 
 
 

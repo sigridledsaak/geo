@@ -83,10 +83,26 @@ function createLayerContent(layerName){
     featureColorCheck.addEventListener('click', function() { showFeaturesByColor(layerName)});
     var featureLabel = document.createElement("LABEL");
     featureLabel.innerText="Show features by color";
+
+    let attributes = getPropertyNames(layerName);
+    var attributeDrop = document.createElement("SELECT");
+    attributeDrop.id = layerName+"attributeDrop";
+    let defaultOption = document.createElement("OPTION");
+    defaultOption.value = "Select property to show by";
+    defaultOption.text = "Select property to show by";
+    attributeDrop.add(defaultOption);
+    for (let a of attributes){
+        attributeDrop.add(createOptionFromText(a));
+    }
+
+    let linebreak = document.createElement("br");
     content.appendChild(label);
     content.appendChild(div);
-    content.appendChild(featureColorCheck);
+    content.appendChild(attributeDrop);
+    content.appendChild(linebreak);
     content.appendChild(featureLabel);
+    content.appendChild(featureColorCheck);
+
     return content;
 }
 
@@ -98,6 +114,7 @@ function showFeaturesByColor(layerName){
         const layer = layerlist[layerName];
         layer.setStyle({color:color});
         layerElement.classList.remove("checked");
+        document.getElementById("closeButtonAttribute").click();
     } else {
         //Setting different colors for the different features.
         setColorsForFeatures(layerName);
@@ -106,16 +123,38 @@ function showFeaturesByColor(layerName){
 }
 
 function setColorsForFeatures(layerName){
+    let property = document.getElementById(layerName+"attributeDrop").options[document.getElementById(layerName+'attributeDrop').selectedIndex].value;
+    console.log(property);
     let layer = layerlist[layerName];
     let maxval = colors.length;
     let count = 0;
     // Using a map instead of object because maps can have any key type, dict only strings. Here my key will be an object
     let featuresAndColor = new Map();
-    if(Object.keys(layer._layers).length == 1){
+    if(Object.keys(layer._layers).length == 1) {
         alert("There is only one feature in this layer");
+    }else if (property != "Select property to show by"){
+        layer.eachLayer(function (layer) {
+            let feat = layer.feature;
+            let color = "";
+            //Making a string containing the object, to be able to compare them.
+            let propertyValue = feat.properties[property];
+            if (featuresAndColor.has(propertyValue)){
+                color = featuresAndColor.get(propertyValue);
+            }else {
+                color = colors[count];
+                count ++;
+                if(count>=maxval-1){
+                    count = 0;
+                }
+            }
+        featuresAndColor.set(propertyValue,color);
+        layer.setStyle({color:color});
+        });
+        showAttributeWindow(featuresAndColor,property);
     }else {
         layer.eachLayer(function (layer) {
             let feat = layer.feature;
+            console.log(feat);
             let color = "";
             //Making a string containing the object, to be able to compare them.
             let obj = JSON.stringify(feat.properties);
@@ -132,4 +171,16 @@ function setColorsForFeatures(layerName){
         layer.setStyle({color:color});
         });
     }
+}
+
+
+function getPropertyNames(layerName){
+    return Object.keys(geolist[layerName].features[0].properties);
+}
+
+function createOptionFromText(text){
+    let option = document.createElement("option");
+    option.value = text;
+    option.text = text;
+    return option;
 }
