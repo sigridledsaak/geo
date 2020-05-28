@@ -130,15 +130,7 @@ function checkRule(feature,rule){
 
 function updatePropertiesDrop(layerName){
     let propertiesDropDown = document.getElementById("propertiesDrop");
-    //let layerName = document.getElementById('featureSelectionDrop').options[document.getElementById('featureSelectionDrop').selectedIndex].value;
-    let layer = layerlist[layerName];
-    let properties = "";
-    //Just need to access one feature to get the property names.
-    for (let l in layer._layers){
-        let props = layer._layers[l].feature.properties;
-        properties = Object.keys(props);
-        break;
-    }
+    let properties = getPropertyNames(layerName);
     for (let prop of properties){
         let option = document.createElement("option");
         option.value = prop;
@@ -158,16 +150,14 @@ function updatePropertyValuesDrop(){
     let layerName = document.getElementById('featureSelectionDrop').options[document.getElementById('featureSelectionDrop').selectedIndex].value;
     let layer = layerlist[layerName];
     let values = [];
-    for (let l in layer._layers){
+    for (let l in layer._layers) {
         let val = layer._layers[l].feature.properties[property];
-        if (!values.includes(val)){
-            let option = document.createElement("option");
-            option.value = val;
-            option.text = val;
-            valueDrop.add(option);
+        if (!values.includes(val)) {
             values.push(val);
         }
     }
+    let sortedVals = values.sort((a, b) => a - b);
+    var map = sortedVals.map(value => valueDrop.add(createOptionFromText(value)));
 }
 
 function addConstraint(){
@@ -243,13 +233,11 @@ function updateAddedPropertyValuesDrop(number){
         for (let l in layer._layers) {
             let val = layer._layers[l].feature.properties[property];
             if (!values.includes(val)) {
-                let option = document.createElement("option");
-                option.value = val;
-                option.text = val;
-                valueDrop.add(option);
                 values.push(val);
             }
         }
+        let sortedVals = values.sort((a, b) => a - b);
+        var map = sortedVals.map(value => valueDrop.add(createOptionFromText(value)));
     });
 }
 
