@@ -13,7 +13,7 @@ function create(){
                      allowIntersection: false, // No intersection in polygons
                      drawError: {
                          color: '#bd0026', // Color the shape will turn when intersects
-                         message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
+                         message: '<strong>Error<strong> polygon can not intersect it-self!' // Message that will show when it intersects
                      }
                  },
                  circlemarker : false
@@ -28,6 +28,7 @@ function create(){
      let drawButton = document.getElementById("drawButton");
      if (drawButton.innerText === "Enable drawing") {
          drawButton.innerText = "Drawing enabled";
+         drawButton.disabled = true;
 
          map.addControl(drawControl);
          map.addLayer(editableLayers);
@@ -37,7 +38,7 @@ function create(){
              let layer = e.layer;
              let geojson = layer.toGeoJSON();
              if (type == "polygon" || type == "rectangle") {
-                 geojson.properties = "Drawed " + type;
+                 geojson.properties["info"] = "Drawed " + type;
                  addNewLayerToMap("draw" + createdCounter, geojson);
                  createdCounter++;
              }

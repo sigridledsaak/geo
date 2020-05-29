@@ -124,6 +124,7 @@ function addNewLayerToMap(key,geojson){
     try {
         var layer = L.shapefile(geojson);
     }catch (e) {
+        console.log(e);
         var layer = geojson;
     }
     for (let l in layer._layers){
