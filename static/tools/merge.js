@@ -7,7 +7,7 @@ function merge(layers){
 function union(layername1,layername2){
     var loader = document.getElementById("unionLoader");
     var warning = document.getElementById("unionWarning");
-    if(layername1 ==="Select 1. layer" || layername2 ==="Select 2. layer") {
+    if(layername1 ==="Select 1. layer" || layername2 ==="Select 2. layer"|| layername1 ==="Select layer" || layername2 === "Select layer" ) {
         warning.innerText = "Invalid input";
         return;
     }

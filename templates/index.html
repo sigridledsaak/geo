@@ -70,7 +70,7 @@
                 <option label = "Select 1. layer">Select 1. layer</option>
             </select>
             <select id = "intersectDrop2" class = "toolDrop">
-                <option label = "Select 2. layer">Select 1. layer</option>
+                <option label = "Select 2. layer">Select 2. layer</option>
             </select>
             <button class ="submit" onclick="intersect(document.getElementById('intersectDrop1').options[document.getElementById('intersectDrop1').selectedIndex].value,document.getElementById('intersectDrop2').options[document.getElementById('intersectDrop2').selectedIndex].value)">Intersect</button><span id = "intersectWarning"></span> <div class="loader" id ="intersectLoader"></div>
         </div>
@@ -116,6 +116,7 @@
         <button class="collapsible" data-listener = "false">Draw</button>
         <div class = "content">
             <button class = "submit" id = "drawButton" onclick="create()">Enable drawing</button><span id = "infobutton" onclick="openDrawingInfo()"><i class="fas fa-info-circle"></i></span>
+
         </div>
 
         <!-- The FeatureSelector Modal -->

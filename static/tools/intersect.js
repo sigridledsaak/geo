@@ -1,7 +1,7 @@
 function intersect(layername1,layername2){
     var loader = document.getElementById("intersectLoader");
     var warning = document.getElementById("intersectWarning");
-    if(layername1 ==="Select 1. layer" || layername2 ==="Select 2. layer") {
+    if(layername1 ==="Select 1. layer" || layername2 ==="Select 2. layer"|| layername1 ==="Select layer" || layername2 === "Select layer" ) {
         warning.innerText = "Invalid input";
         return;
     }

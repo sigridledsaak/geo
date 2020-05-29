@@ -4,12 +4,20 @@ self.addEventListener('message', function(ev) {
     var attribute = ev.data.attribute;
     var featuresToMerge = {};
     let res;
-    if (attribute === "All"){
+    let notDissolved = true;
+    try {
+        let feat =turf.union(...layer.features);
+    }catch {
+        notDissolved = false;
+    }
+    if (attribute === "All"&& notDissolved){
         let feature = turf.union(...layer.features);
         feature.properties = {};
         feature.properties["Info"] = "Dissolved "+attribute;
         res = feature;
-    }else {
+    }else if (!notDissolved){
+        res ="";
+    } else {
         //Lag en featurecollection der hver feature er et polygon som inneholder de featurene i laget som har samme verdi for attribute
         for (let feat of layer.features) {
             let propertyVal = feat.properties[attribute];

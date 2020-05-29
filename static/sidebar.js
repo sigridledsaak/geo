@@ -85,7 +85,6 @@ function createLayerContent(layerName){
     featureLabel.innerText="Show features by color";
 
     let attributes = getPropertyNames(layerName);
-    console.log(attributes !="");
     if (attributes !=""){
         var attributeDrop = document.createElement("SELECT");
         attributeDrop.id = layerName+"attributeDrop";

@@ -163,12 +163,19 @@ function checkboxClicked(layer){
 }
 
 function updateToolDropDowns(){
+
     let toolDrops = document.getElementsByClassName("toolDrop");
     for (let drop of toolDrops){
         drop.innerHTML = "";
-        let defaultoption = document.createElement("option");
-        defaultoption.value = "Select layer";
-        defaultoption.text = "Select layer";
+        let defaultoption;
+        if (drop.id ==="clipLayerDrop"){
+            defaultoption = createOptionFromText("Select layer to clip");
+        } else if (drop.id ==="clipClipperDrop"){
+            defaultoption = createOptionFromText("Select layer to clip by");
+        }else {
+            defaultoption = createOptionFromText("Select layer");
+        }
+
         drop.options.add(defaultoption);
 
         for (let layerName of Object.keys(layerlist)){
@@ -205,7 +212,7 @@ function deleteLayer(event){
     delete layerlist[layername];
     delete geolist[layername];
 
-    //Må oppdatere dropdown for alle toolene, med denne blir de kun lagt til i listen selvom de finnes der allerede
+    //Må oppdatere dropdown for alle toolene, med denne blir de kun lagt til i listen selvom de finnes der allerede, sjekk denne
     updateToolDropDowns();
 
 
