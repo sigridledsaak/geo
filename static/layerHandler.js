@@ -72,6 +72,11 @@ function addLayersToMap(layers) {
 
 
 function addNewLayerToMap(key,geojson){
+    try {
+        layerlist.length;
+    }catch {
+       window.layerlist = {};
+    }
     let modifiedKey = createLayerName(key);
     geolist[modifiedKey]=geojson;
     var color = Math.round(Math.random()*11);
@@ -81,9 +86,9 @@ function addNewLayerToMap(key,geojson){
     node.className = "collapsible_layer";
     node.id = modifiedKey;
 
-   var textnode = document.createElement("div");
-   textnode.innerText = modifiedKey;
-   textnode.className = "collapsible_layer_text";
+    var textnode = document.createElement("div");
+    textnode.innerText = modifiedKey;
+    textnode.className = "collapsible_layer_text";
     node.appendChild(textnode);
 
     var button = document.createElement("BUTTON");
@@ -115,7 +120,6 @@ function addNewLayerToMap(key,geojson){
     node.appendChild(deletebutton);
 
     layerListParent.appendChild(node);
-
     //Adding layer in the map
     try {
         var layer = L.shapefile(geojson);
@@ -159,12 +163,19 @@ function checkboxClicked(layer){
 }
 
 function updateToolDropDowns(){
+
     let toolDrops = document.getElementsByClassName("toolDrop");
     for (let drop of toolDrops){
         drop.innerHTML = "";
-        let defaultoption = document.createElement("option");
-        defaultoption.value = "Select layer";
-        defaultoption.text = "Select layer";
+        let defaultoption;
+        if (drop.id ==="clipLayerDrop"){
+            defaultoption = createOptionFromText("Select layer to clip");
+        } else if (drop.id ==="clipClipperDrop"){
+            defaultoption = createOptionFromText("Select layer to clip by");
+        }else {
+            defaultoption = createOptionFromText("Select layer");
+        }
+
         drop.options.add(defaultoption);
 
         for (let layerName of Object.keys(layerlist)){
@@ -201,7 +212,7 @@ function deleteLayer(event){
     delete layerlist[layername];
     delete geolist[layername];
 
-    //Må oppdatere dropdown for alle toolene, med denne blir de kun lagt til i listen selvom de finnes der allerede
+    //Må oppdatere dropdown for alle toolene, med denne blir de kun lagt til i listen selvom de finnes der allerede, sjekk denne
     updateToolDropDowns();
 
 

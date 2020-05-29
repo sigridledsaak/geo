@@ -300,6 +300,13 @@
     margin-right: 3px;
     margin-top: -2px;
 }
+.leaflet-draw{
+    float : right;
+}
+#infobutton{
+    margin-left : 5px;
+    cursor : pointer;
+}
 
 
 

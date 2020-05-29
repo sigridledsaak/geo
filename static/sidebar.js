@@ -85,24 +85,28 @@ function createLayerContent(layerName){
     featureLabel.innerText="Show features by color";
 
     let attributes = getPropertyNames(layerName);
-    var attributeDrop = document.createElement("SELECT");
-    attributeDrop.id = layerName+"attributeDrop";
-    let defaultOption = document.createElement("OPTION");
-    defaultOption.value = "Select property to show by";
-    defaultOption.text = "Select property to show by";
-    attributeDrop.add(defaultOption);
-    for (let a of attributes){
-        attributeDrop.add(createOptionFromText(a));
+    if (attributes !=""){
+        var attributeDrop = document.createElement("SELECT");
+        attributeDrop.id = layerName+"attributeDrop";
+        let defaultOption = document.createElement("OPTION");
+        defaultOption.value = "Select property to show by";
+        defaultOption.text = "Select property to show by";
+        attributeDrop.add(defaultOption);
+        for (let a of attributes){
+            attributeDrop.add(createOptionFromText(a));
+        }
     }
+
 
     let linebreak = document.createElement("br");
     content.appendChild(label);
     content.appendChild(div);
-    content.appendChild(attributeDrop);
-    content.appendChild(linebreak);
-    content.appendChild(featureLabel);
-    content.appendChild(featureColorCheck);
-
+    if (attributes !=""){
+        content.appendChild(attributeDrop);
+        content.appendChild(linebreak);
+        content.appendChild(featureLabel);
+        content.appendChild(featureColorCheck);
+    }
     return content;
 }
 
@@ -124,7 +128,6 @@ function showFeaturesByColor(layerName){
 
 function setColorsForFeatures(layerName){
     let property = document.getElementById(layerName+"attributeDrop").options[document.getElementById(layerName+'attributeDrop').selectedIndex].value;
-    console.log(property);
     let layer = layerlist[layerName];
     let maxval = colors.length;
     let count = 0;
@@ -136,7 +139,6 @@ function setColorsForFeatures(layerName){
         layer.eachLayer(function (layer) {
             let feat = layer.feature;
             let color = "";
-            //Making a string containing the object, to be able to compare them.
             let propertyValue = feat.properties[property];
             if (featuresAndColor.has(propertyValue)){
                 color = featuresAndColor.get(propertyValue);
@@ -154,7 +156,6 @@ function setColorsForFeatures(layerName){
     }else {
         layer.eachLayer(function (layer) {
             let feat = layer.feature;
-            console.log(feat);
             let color = "";
             //Making a string containing the object, to be able to compare them.
             let obj = JSON.stringify(feat.properties);
@@ -175,7 +176,18 @@ function setColorsForFeatures(layerName){
 
 
 function getPropertyNames(layerName){
-    return Object.keys(geolist[layerName].features[0].properties);
+    let propertyNames;
+    try {
+        propertyNames = Object.keys(geolist[layerName].features[0].properties);
+    }catch (e){
+        try {
+            propertyNames = Object.keys(geolist[layerName].properties);
+        }catch(e) {
+            console.log(e);
+            propertyNames = "";
+        }
+    }
+    return propertyNames
 }
 
 function createOptionFromText(text){
