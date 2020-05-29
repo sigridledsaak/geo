@@ -4,13 +4,9 @@ function create(){
     }catch {
         window.createdCounter = 0;
     }
-     let drawButton = document.getElementById("drawButton");
-     if (drawButton.innerText === "Enable drawing") {
-         // Initialise the FeatureGroup to store editable layers
-         var editableLayers = new L.FeatureGroup();
-         map.addLayer(editableLayers);
-
-         var drawOptions = {
+    //EditableLayers will be the drawed elements that it should be possible to remove by clicking on the trash icon.
+    var editableLayers = new L.FeatureGroup();
+    var drawOptions = {
              position: 'topright',
              draw: {
                  polygon: {
@@ -18,39 +14,66 @@ function create(){
                      drawError: {
                          color: '#bd0026', // Color the shape will turn when intersects
                          message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
-                     },
-                 }
+                     }
+                 },
+                 circlemarker : false
+             }
+             ,edit : {
+                 featureGroup : editableLayers,
+                 edit : false
              }
          };
-         var drawControl = new L.Control.Draw(drawOptions);
-         map.addControl(drawControl);
+    var drawControl = new L.Control.Draw(drawOptions);
 
-         var editableLayers = new L.FeatureGroup();
+     let drawButton = document.getElementById("drawButton");
+     if (drawButton.innerText === "Enable drawing") {
+         drawButton.innerText = "Drawing enabled";
+
+         map.addControl(drawControl);
          map.addLayer(editableLayers);
 
          map.on('draw:created', function (e) {
              var type = e.layerType;
-             console.log(type);
              let layer = e.layer;
              let geojson = layer.toGeoJSON();
-
-             if (type =="polygon"){
-                 addNewLayerToMap("draw"+createdCounter,geojson);
+             if (type == "polygon" || type == "rectangle") {
+                 geojson.properties = "Drawed " + type;
+                 addNewLayerToMap("draw" + createdCounter, geojson);
                  createdCounter++;
              }
-             if (type =="marker"){
-                 layer.bindPopup(`<p>lat,long : ${geojson.geometry.coordinates[1]},${geojson.geometry.coordinates[0]}`);
-                 layer.addTo(map);
+             if (type == "circle") {
+                 var radius = e.layer.getRadius();
+                 let area = (Math.PI) * (radius * radius);
+                 layer.bindPopup('Radius: ' + radius.toFixed(1) + 'm, Area : ' + (area / 1000000).toFixed(2) + ' km<sup>2</sup>');
+                 editableLayers.addLayer(layer);
+                 layer.openPopup();
+
              }
+             if (type == "polyline") {
+                 //Calculate the length of the line
+                 let totalDistance = 0;
+                 let prevLatLng = null;
+                 for (let latlng of layer._latlngs) {
+                     if (prevLatLng == null) {
+                         prevLatLng = latlng;
+                     } else {
+                         totalDistance += prevLatLng.distanceTo(latlng);
+                         prevLatLng = latlng;
+                     }
+                 }
+                 layer.bindPopup(`<p> Polyline with length : ${totalDistance.toFixed(1)}m`);
+                 editableLayers.addLayer(layer);
+                 layer.openPopup();
 
+             }
+             if (type == "marker") {
+                 layer.bindPopup(`<p>lat,long : ${geojson.geometry.coordinates[1]},${geojson.geometry.coordinates[0]}`);
+                 editableLayers.addLayer(layer);
+                 layer.openPopup();
 
+             }
          });
-
-     }else {
-         map.removeControl(drawControl);
-         drawButton.innerText = "Enable drawing";
      }
-
 
 }
 

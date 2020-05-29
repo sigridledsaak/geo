@@ -303,6 +303,10 @@
 .leaflet-draw{
     float : right;
 }
+#infobutton{
+    margin-left : 5px;
+    cursor : pointer;
+}
 
 
 
