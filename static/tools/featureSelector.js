@@ -31,7 +31,7 @@ function openWindow(layerName){
 }
 
 function checkRules(property,operator,value){
-    if (property ==="Select feature"){
+    if (property ==="Select attribute"){
         return false;
     }else if (operator ==="Select function"){
         return false;
@@ -246,8 +246,8 @@ function initDynamicDropDowns(){
     let valueDrop = document.getElementById("propertyValuesDrop");
     if (propertiesDropDown.options.length === 0){
         let pOption = document.createElement("option");
-        pOption.value = "Select feature";
-        pOption.text = "Select feature";
+        pOption.value = "Select attribute";
+        pOption.text = "Select attribute";
         propertiesDropDown.add(pOption);
     }
     if (valueDrop.options.length === 0){

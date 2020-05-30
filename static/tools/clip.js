@@ -13,7 +13,7 @@ function clip(layerName,clipperName){
         let clippedFeatures = [];
         try{
             for(let feat of layer.features){
-            clippedFeatures.push(turf.bboxClip(feat,clipperBbox));
+                clippedFeatures.push(turf.bboxClip(feat,clipperBbox));
             }
             let featureCollection = {"features" : clippedFeatures,"fileName" : layerName+"_Clipped","type":"FeatureCollection"};
             result = featureCollection;
@@ -21,8 +21,6 @@ function clip(layerName,clipperName){
             console.log(e);
             result = turf.bboxClip(layer,clipperBbox);
         }
-        console.log(result);
-
         addNewLayerToMap("C"+layerName,result);
     }
 

@@ -24,7 +24,7 @@ function makeColorPicker(layerName){
         swatch.style.backgroundColor = color;
         swatch.addEventListener('click', function() {
             layer.setStyle({color: color});
-            tab.children[1].style.backgroundColor = color;
+            tab.children[2].style.backgroundColor = color;
         });
     swatches.appendChild(swatch);
     });
