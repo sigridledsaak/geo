@@ -45,7 +45,7 @@ function create(){
              if (type == "circle") {
                  var radius = e.layer.getRadius();
                  let area = (Math.PI) * (radius * radius);
-                 layer.bindPopup('Radius: ' + radius.toFixed(1) + 'm, Area : ' + (area / 1000000).toFixed(2) + ' km<sup>2</sup>');
+                 layer.bindPopup('Radius: ' + radius.toFixed(1) + 'm, Area : ' + (area).toFixed(2) + ' m<sup>2</sup>');
                  editableLayers.addLayer(layer);
                  layer.openPopup();
 
