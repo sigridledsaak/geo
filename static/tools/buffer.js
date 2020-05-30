@@ -10,7 +10,9 @@ function makeBuffer(layerName, radius){
 }
 
 function buffer(layerName,radius){
+    var layer = geolist[layerName];
     var errorMessage = document.getElementById("bufferWarning");
+    var loader = document.getElementById("bufferLoader");
     //Checks if the input radius is a number
     if(isNaN(radius)){
         errorMessage.innerText = "Radius must be a number"
@@ -20,10 +22,23 @@ function buffer(layerName,radius){
         } else {
             errorMessage.innerText = "";
             try {
-                var merged = makeBuffer(layerName, radius);
-                merged["properties"] = {Info: `Buffer with radius: ${radius} km, around : ${layerName}`};
-                //errorMessage.innerText = "";
-                addNewLayerToMap("B" + radius + layerName, merged);
+                if (window.Worker) {
+                    loader.style.display = "inline";
+                    var worker = new Worker('static/workers/bufferWorker.js');
+                    worker.addEventListener('message', function (e) {
+                        var layer = e.data;
+                        layer["properties"] = {Info: `Buffer with radius: ${radius} km, around : ${layerName}`};
+                        addNewLayerToMap("B" + radius + layerName, layer);
+                        loader.style.display = "none";
+                    }, false); // Add listener to listen for messages that come from the worker
+                    worker.postMessage({'layer': layer, 'radius': radius});
+
+                }else {
+                    var merged = makeBuffer(layerName, radius);
+                    merged["properties"] = {Info: `Buffer with radius: ${radius} km, around : ${layerName}`};
+                    //errorMessage.innerText = "";
+                    addNewLayerToMap("B" + radius + layerName, merged);
+                }
             } catch (e) {
                 console.log(e);
             }
