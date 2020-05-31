@@ -88,9 +88,7 @@ function createLayerContent(layerName){
     if (attributes !=""){
         var attributeDrop = document.createElement("SELECT");
         attributeDrop.id = layerName+"attributeDrop";
-        let defaultOption = document.createElement("OPTION");
-        defaultOption.value = "Select property to show by";
-        defaultOption.text = "Select property to show by";
+        let defaultOption = createOptionFromText("Select attribute to show by");
         attributeDrop.add(defaultOption);
         for (let a of attributes){
             attributeDrop.add(createOptionFromText(a));

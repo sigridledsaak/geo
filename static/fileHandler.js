@@ -3,11 +3,13 @@ var map = document.getElementById("map");
 
 function uploadFiles() {
 	var files = document.getElementById('file').files;
+	//Do nothing if no file is uploaded
 	if (files.length == 0) {
-	  return; //do nothing if no file given yet
+	  return;
     }
     var file = files[0];
-    if (file.name.slice(-3) === 'zip') { //Only allow .zip files, secure and simple.
+	//Only allow .zip and .geojson files.
+    if (file.name.slice(-3) === 'zip') {
         document.getElementById('warning').innerHTML = ''; //clear warning message.
         handleZipFile(file);
     } else if (file.name.slice(-7) ==='geojson') {
@@ -20,8 +22,8 @@ function uploadFiles() {
 }
 
 function handleZipFile(file){
+    console.log(file);
 	var reader = new FileReader();
-
     reader.onload = function(){
 	    if (reader.readyState != 2 || reader.error){
 		    return;
