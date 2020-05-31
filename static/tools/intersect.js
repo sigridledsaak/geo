@@ -11,6 +11,7 @@ function intersect(layername1,layername2){
         //errorMessage.innerText = "";
         loader.style.display = "inline";
         warning.innerText = "";
+        var timeout = setTimeout(function(){warning.innerText = "Slow tool, be patient.."}, 5000);
         if (window.Worker) {
             var worker = new Worker('static/workers/intersectWorker.js');
             worker.addEventListener('message', function(e) {
@@ -18,10 +19,14 @@ function intersect(layername1,layername2){
                     let layer = merge(e.data);
                     layer["properties"]={Info : `Intersection between ${layername1} and ${layername2}`};
                     addNewLayerToMap("I" + layername1 + layername2, layer);
+                    warning.innerText = "";
                 } else {
                     alert("The layers has no overlapping geometry.");
+                    warning.innerText = "";
                 }
                 loader.style.display = "none";
+                clearTimeout(timeout);
+                warning.innerText = "";
             }, false); // Add listener to listen for messages that come from the worker
             worker.postMessage({'layer1' : layer1, 'layer2' : layer2}); //This is how we post information to the worker
         } else {

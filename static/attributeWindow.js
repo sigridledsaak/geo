@@ -10,7 +10,7 @@ function showAttributeWindow(propertyAndColorMap,property){
     }
 }
 
-function addElementToWindow(value,key,map){
+function addElementToWindow(value,key){
     let attributeList = document.getElementById("attributeList");
     let div = document.createElement("DIV");
     let colorDot = document.createElement("SPAN");

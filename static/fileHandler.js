@@ -22,7 +22,6 @@ function uploadFiles() {
 }
 
 function handleZipFile(file){
-    console.log(file);
 	var reader = new FileReader();
     reader.onload = function(){
 	    if (reader.readyState != 2 || reader.error){

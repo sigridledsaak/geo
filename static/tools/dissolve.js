@@ -31,8 +31,10 @@ function dissolve(layername,attribute){
                     addNewLayerToMap("D" + layername + attribute, layer);
                 }else if (e.data ===""){
                     alert("Layer has only one feature, meaning it is already disolved");
+                    warning.innerText = "";
                 } else {
                     alert("Error in dissolve");
+                    warning.innerText = "";
                 }
                 loader.style.display = "none";
                 clearTimeout(timeout);

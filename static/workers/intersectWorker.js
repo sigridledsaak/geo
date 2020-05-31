@@ -1,7 +1,8 @@
 self.addEventListener('message', function(ev) {
     importScripts('https://npmcdn.com/@turf/turf/turf.min.js');
-    var layer1 = ev.data.layer1;
-    var layer2 = ev.data.layer2;
+    //Using turf.flatten to make convert multigeometry to single.
+    var layer1 = turf.flatten(ev.data.layer1);
+    var layer2 = turf.flatten(ev.data.layer2);
     var intersections = [];
     let len1 = 0;
     let len2 = 0;

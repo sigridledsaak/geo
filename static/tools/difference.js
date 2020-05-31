@@ -13,6 +13,7 @@ function differences(layername1,layername2){
         var layer1 = turf.buffer(geolist[layername1],0.000001);
         var layer2 = turf.buffer(geolist[layername2],0.000001);
         loader.style.display = "inline";
+        var timeout = setTimeout(function(){warning.innerText = "Slow tool, be patient.."}, 5000);
         if (window.Worker) {
             var worker = new Worker('static/workers/differenceWorker.js');
             worker.addEventListener('message', function(e) {
@@ -21,10 +22,14 @@ function differences(layername1,layername2){
                     //Properties må være object!
                      layer["properties"]={Info : `Difference between ${layername1} and ${layername2}`};
                      addNewLayerToMap("D" + layername1 + layername2, layer);
+                     warning.innerText = "";
                 } else {
+                    warning.innerText = "";
                     alert("The result is empty, maybe there is no difference or other failure, check console");
                 }
                 loader.style.display = "none";
+                warning.innerText = "";
+                clearTimeout(timeout);
             }, false); // Add listener to listen for messages that come from the worker
             worker.postMessage({'layer1' : layer1, 'layer2' : layer2}); //This is how we post information to the worker
         } else {
