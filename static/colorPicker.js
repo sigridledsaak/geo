@@ -2,14 +2,16 @@ var map = document.getElementById("map");
 var colors = [
     '#0fe388',
     '#00b300',
+    '#0E6655',
     '#3333ff',
     '#2c7fb8',
     '#253494',
+    '#8E44AD',
     '#ff66b3',
-    '#feb24c',
+    '#F1C40F',
     '#fd8d3c',
-    '#f03b20',
-    '#bd0026',
+    '#D35400',
+    '#C0392B',
     '#804000',
     '#404040'
 ];

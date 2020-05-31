@@ -3,10 +3,12 @@ self.addEventListener('message', function(ev) {
     var data = ev.data;
     var layer = data.layer;
     var radius = data.radius;
-    var buffer = turf.buffer(layer, radius, {units: "kilometers" });
+    var buffer = turf.buffer(turf.flatten(layer), radius, {units: "kilometers" });
+    console.log(buffer);
     try {
         var merged = merge(buffer.features);
-    } catch {
+    } catch (e) {
+        console.log(e);
         var merged = buffer;
     }
     self.postMessage(merged) //sends back to the function that uses the worker

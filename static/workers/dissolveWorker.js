@@ -5,6 +5,8 @@ self.addEventListener('message', function(ev) {
     var featuresToMerge = {};
     let res;
     let notDissolved = true;
+    //This checks if the layer has several features, if it does not the layer is already dissolved.
+    // If this is the case we will just return a message about this to the user.
     try {
         let feat =turf.union(...layer.features);
     }catch {
@@ -18,7 +20,10 @@ self.addEventListener('message', function(ev) {
     }else if (!notDissolved){
         res ="";
     } else {
-        //Lag en featurecollection der hver feature er et polygon som inneholder de featurene i laget som har samme verdi for attribute
+        //Creating a featurecollection where each feature is a polygon that contains the features in the layer with the same
+        //value for attribute.
+        //First make a dict with every possible attribute value for the given attribute as key
+        // and the belonging value to each key is the features that has that value for the given attribute.
         for (let feat of layer.features) {
             let propertyVal = feat.properties[attribute];
             let newFeat = feat;
@@ -31,6 +36,7 @@ self.addEventListener('message', function(ev) {
                 featuresToMerge[propertyVal].push(newFeat);
             }
         }
+        //Merging all the features in the list of features for each attribute value(key) to one feature.
         let mergedFeatures = {};
         let featureList = [];
         for (let feat of Object.keys(featuresToMerge)){
@@ -38,7 +44,7 @@ self.addEventListener('message', function(ev) {
             mergedFeatures[feat] = merged;
             featureList.push(merged);
         }
-        //Lag featurecollection av de mergede featurene
+        //Create a feature collection of the single features for each attributevalue.
         let featureCollection = {"features" : featureList,"fileName" : "dissolved "+attribute,"type":"FeatureCollection"};
         res = featureCollection;
     }

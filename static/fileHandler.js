@@ -47,14 +47,12 @@ function handleGeojson(file){
 
 }
 
-
-
 //Makes a dictionary of all the shp files in the zip and their belonging shp
 function convertToLayers(buffer){
     //geolist is a list of all the geojsons for every layer in the map, used in the workers.
     var layerList = {};
     shp(buffer).then(function(array){ //Array here is an array of the geojson from the shp files in the zipped file uploaded
-        if( array.length === undefined){ //If there is only one shp file in the zip then the array will be a geojson, and the length will be undefined
+        if(array.length === undefined){ //If there is only one shp file in the zip then the array will be a geojson, and the length will be undefined
             var originalName = array.fileName;
             var layerName = createLayerName(originalName);
             layerList[layerName] = array;

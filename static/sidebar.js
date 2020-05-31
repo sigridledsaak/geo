@@ -1,10 +1,10 @@
-
+//Handles opening and closing of the sidebar
 function toggleSidebar() {
     document.getElementById("burgerButton").classList.toggle("active");
     document.getElementById("sidebar").classList.toggle("active");
     updateSidebar();
 }
-
+//Adds functionality for opening and closing the content in the sidebar elements.
 function updateSidebar(){
     var coll = document.getElementsByClassName("collapsible");
     var i;
@@ -24,7 +24,7 @@ function updateSidebar(){
         }
     }
 }
-
+//Adds functionality to open and close the layer-elements content.
 function updateSidebarLayers(){
     var coll = document.getElementsByClassName("collapse_button");
     var i;
@@ -65,7 +65,7 @@ function updateSidebarLayers(){
 function insertAfter(el, referenceNode) {
     referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
 }
-
+//Creates the content in the layer-elements.
 function createLayerContent(layerName){
     var content = document.createElement("DIV");
     content.className = "content";
@@ -85,6 +85,7 @@ function createLayerContent(layerName){
     featureLabel.innerText="Show features by color";
 
     let attributes = getPropertyNames(layerName);
+    //if the layer does not have attributes, like the drawings, it should not have the possibility to show the features that it does not have.
     if (attributes !=""){
         var attributeDrop = document.createElement("SELECT");
         attributeDrop.id = layerName+"attributeDrop";
