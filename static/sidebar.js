@@ -133,7 +133,7 @@ function setColorsForFeatures(layerName){
     let featuresAndColor = new Map();
     if(Object.keys(layer._layers).length == 1) {
         alert("There is only one feature in this layer");
-    }else if (property != "Select property to show by"){
+    }else if (property != "Select attribute to show by"){
         layer.eachLayer(function (layer) {
             let feat = layer.feature;
             let color = "";
