@@ -15,11 +15,22 @@ function clip(layerName,clipperName){
             for(let feat of layer.features){
                 clippedFeatures.push(turf.bboxClip(feat,clipperBbox));
             }
-            let featureCollection = {"features" : clippedFeatures,"fileName" : layerName+"_Clipped","type":"FeatureCollection"};
-            result = featureCollection;
+            if (clippedFeatures.length ==0){
+                alert("The result is empty, the layer to clip might not have any features inside the layer to clip by.");
+                return;
+            }else {
+                let featureCollection = {"features" : clippedFeatures,"fileName" : layerName+"_Clipped","type":"FeatureCollection"};
+                result = featureCollection;
+            }
+
         }catch(e) {
             console.log(e);
             result = turf.bboxClip(layer,clipperBbox);
+            if (result.geometry.coordinates.length ==0){
+                alert("The result is empty, the layer to clip might not have any features inside the layer to clip by.");
+                return;
+            }
+
         }
         addNewLayerToMap("C"+layerName,result);
     }
