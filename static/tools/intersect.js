@@ -8,7 +8,6 @@ function intersect(layername1,layername2){
     try {
         var layer1 = geolist[layername1];
         var layer2 = geolist[layername2];
-        //errorMessage.innerText = "";
         loader.style.display = "inline";
         warning.innerText = "";
         var timeout = setTimeout(function(){warning.innerText = "Slow tool, be patient.."}, 5000);

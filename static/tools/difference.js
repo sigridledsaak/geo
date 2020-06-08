@@ -1,6 +1,4 @@
 function differences(layername1,layername2){
-    //FEIL I DIFFERENCE SLOPE OG VANN SKAL HA OVERLAP.-
-
 
     var loader = document.getElementById("differenceLoader");
     var warning = document.getElementById("differenceWarning");

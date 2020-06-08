@@ -1,6 +1,7 @@
 
 var map = document.getElementById("map");
 
+//Handles the uploading of files
 function uploadFiles() {
 	var files = document.getElementById('file').files;
 	//Do nothing if no file is uploaded

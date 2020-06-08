@@ -1,5 +1,5 @@
 
-//Opens and closes the drawing info.
+//Opens and closes the drawing info window.
 function openDrawingInfo() {
     let infoModal = document.getElementById("infoModal");
     infoModal.style.display = "block";

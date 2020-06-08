@@ -109,6 +109,7 @@ function createLayerContent(layerName){
     return content;
 }
 
+//Show the features in the layer using colors.
 function showFeaturesByColor(layerName){
     var layerElement = document.getElementById(layerName + "featureCheckbox");
     if (layerElement.classList.contains("checked")){
@@ -125,6 +126,7 @@ function showFeaturesByColor(layerName){
     }
 }
 
+//Sets the color for each feature, and opens the attribute window.
 function setColorsForFeatures(layerName){
     let property = document.getElementById(layerName+"attributeDrop").options[document.getElementById(layerName+'attributeDrop').selectedIndex].value;
     let layer = layerlist[layerName];

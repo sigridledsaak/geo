@@ -76,10 +76,8 @@
     background-color: #001a33;
     color: white;
     padding: 0px 0px;
-    /*line-height: 0px;*/
     width: inherit;
     text-align: center;
-    /*outline: none;*/
     height: 35px;
     font-size: 15px;
     border: none;
@@ -114,7 +112,6 @@
     float: right;
     text-align: center;
     position : inherit;
-    /*top : -3px;*/
     padding: 0px 7px;
     margin: -28px 7px;
     cursor:pointer;
@@ -134,16 +131,12 @@
 
 .downloadButton{
     float: left;
-    /*margin-top : -25px;*/
-    /*margin-left : 15px;*/
     margin : -26px 22px;
     font-size : 13px;
     cursor:pointer;
 }
 .deleteButton{
     float: left;
-    /*margin-top : -25px;*/
-    /*margin-left : 30px;*/
     margin:-26px 36px;
     font-size : 13px;
     cursor:pointer;
@@ -155,8 +148,6 @@
     margin : 8px auto;
     vertical-align: middle;
     text-overflow: ellipsis;
-
-    /* Required for text-overflow to do anything */
     white-space: nowrap;
     overflow:hidden;
 

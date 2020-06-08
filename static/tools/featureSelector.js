@@ -1,3 +1,4 @@
+//Hides and closes the featureselector window.
 function openWindow(layerName){
     var warning = document.getElementById("featureSelectorWarning");
     if (layerName === "Select layer"){
@@ -30,6 +31,7 @@ function openWindow(layerName){
     };
 }
 
+//Checks that every rule contains valid values
 function checkRules(property,operator,value){
     if (property ==="Select attribute"){
         return false;
@@ -43,6 +45,7 @@ function checkRules(property,operator,value){
 
 }
 
+//Get the rules from the DOM
 function getRules(){
     let constraints = document.getElementsByClassName("constraintRow");
     var ruleList= [];
@@ -111,6 +114,7 @@ function featureSelection(){
 
 }
 
+//Checks if a feature satisfies a rule
 function checkRule(feature,rule){
     switch (rule.operator) {
         case "==":
@@ -128,6 +132,7 @@ function checkRule(feature,rule){
     }
 }
 
+//Updates the dropdown menu with valid attributes
 function updatePropertiesDrop(layerName){
     let propertiesDropDown = document.getElementById("propertiesDrop");
     let properties = getPropertyNames(layerName);
@@ -139,6 +144,7 @@ function updatePropertiesDrop(layerName){
     }
 }
 
+//Updates the dropdown menu with valid attribute-values
 function updatePropertyValuesDrop(){
     let valueDrop = document.getElementById("propertyValuesDrop");
     valueDrop.innerHTML = "";
@@ -156,10 +162,12 @@ function updatePropertyValuesDrop(){
             values.push(val);
         }
     }
+    //Sorting the values of the attributes
     let sortedVals = values.sort((a, b) => a - b);
     var map = sortedVals.map(value => valueDrop.add(createOptionFromText(value)));
 }
 
+//Adding a rule-row.
 function addConstraint(){
     let numberOfContraints = document.getElementsByClassName("constraintRow").length;
     let minusButton = document.getElementById("minusButton");
@@ -204,6 +212,7 @@ function addConstraint(){
     updateAddedPropertyValuesDrop(numberOfContraints);
 }
 
+//Removes the last rule-row.
 function removeConstraint(){
     let numberOfConstraints = document.getElementsByClassName("constraintRow").length;
     let minusButton = document.getElementById("minusButton");
@@ -216,7 +225,7 @@ function removeConstraint(){
     modalContent.removeChild(constraintToBeRemoved);
 }
 
-
+//Update the added rule-rows attribute-values drop down menu
 function updateAddedPropertyValuesDrop(number){
     let propDrop = document.getElementById("propertiesDrop"+number);
     propDrop.addEventListener('change', function() {
@@ -241,6 +250,7 @@ function updateAddedPropertyValuesDrop(number){
     });
 }
 
+//Initialize the dropdown menus with the default values.
 function initDynamicDropDowns(){
     let propertiesDropDown = document.getElementById("propertiesDrop");
     let valueDrop = document.getElementById("propertyValuesDrop");
@@ -258,6 +268,7 @@ function initDynamicDropDowns(){
     }
 }
 
+//Resetting the window, emptying the dropdown menus.
 function clearModal() {
     let constraints = document.getElementsByClassName("constraintRow").length-1;
     let parent = document.getElementsByClassName("constraintContent")[0];
